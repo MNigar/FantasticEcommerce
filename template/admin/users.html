@@ -1,0 +1,23 @@
+<table>
+    <thead>
+    <tr>
+<th>Username</th>
+<th>Email</th>   
+<th>image</th>   
+<th>Duzelis</th>   
+ </tr>
+</thead>
+<tbody>
+    {%  for i in users %}
+<tr>
+    <td> {{i.Name}}</td>
+   <td> {{i.Surname}}  </td> 
+   <td> 
+    <img width="100px" style="margin: 10px;" src="{{url_for('static', filename = i.Image)}}" alt="">
+
+   <td>                     <a href="/delete/{{ i.id }}" class="btn btn-primary">Edit</a>
+   </td> 
+</tr>
+  {% endfor %}
+</tbody>
+</table>

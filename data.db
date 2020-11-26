@@ -1,0 +1,169 @@
+
+class Size(db.Model):
+    __tablename__ = 'Size'
+    Id=db.Column(db.Integer,primary_key=True)
+    Name=db.Column(db.String(50),nullable=False)
+    sizes=db.relationship("RelSizeProduct", back_populates="Size")
+    cart=db.relationship("Cart", back_populates="Size")
+    order=db.relationship("Order", back_populates="Size")
+
+    def __repr__(self):
+        return f"Size('{self.Name}')"
+class Color(db.Model):
+    __tablename__='Color'
+    Id=db.Column(db.Integer,primary_key=True)
+    Name=db.Column(db.String(50),nullable=False)
+    colors=db.relationship("RelColorProduct", back_populates="Color")
+    cart=db.relationship("Cart", back_populates="Color")
+    order=db.relationship("Order", back_populates="Color")
+
+    def __repr__(self):
+        return f"Color('{self.Name}')"
+class Shop(db.Model):
+    __tablename__='Shop'
+    Id=db.Column(db.Integer,primary_key=True)
+    Name=db.Column(db.String(50),nullable=False)
+    Voen=db.Column(db.String(50),nullable=True)
+    RegisterDate=db.Column(db.DateTime, nullable=False)
+    Adress=db.Column(db.String(50),nullable=True)
+    Phone=db.Column(db.String(50),nullable=False)
+    Status=db.Column(db.Integer,nullable=False)
+    UserId=db.Column(db.Integer,ForeignKey('User.Id'),nullable=False)
+    user= db.relationship("User", back_populates="Shop")
+    product = db.relationship('Products', back_populates='Shop')
+
+    Image=db.Column(db.String(500),nullable=True)
+    def __repr__(self):
+        return f"Shop('{self.Name}','{self.Voen}','{self.RegisterDate}','{self.Adress}','{self.Phone}','{self.Status}','{self.UserId}','{self.Image}')"
+class Example(db.Model):
+    __tablename__ = 'Example'
+    Id=db.Column(db.Integer,primary_key=True)
+    Name=db.Column(db.String(50),nullable=False)
+    Surname=db.Column(db.String(50),nullable=False)
+    Image=db.Column(db.String(500),nullable=True)
+
+    def __repr__(self):
+        return f"Example('{self.Name}','{self.Surname}','{self.Image}')"
+class Category(db.Model):
+    __tablename__='Category'
+    Id=db.Column(db.Integer,primary_key=True)
+    ParentCategoryId=db.Column(db.Integer,nullable=True)
+    Name=db.Column(db.String(50),nullable=False)
+   
+    def __repr__(self):
+        return f"Category('{self.ParentCategoryId}','{self.Name}')"
+class Products(db.Model):
+    __tablename__='Products'
+    Id=db.Column(db.Integer,primary_key=True)
+    Name=db.Column(db.String(50),nullable=False)    
+    Count=db.Column(db.Integer, nullable=False)
+    CategoryId=db.Column(db.Integer,ForeignKey('Category.Id'),nullable=False)
+    Price=db.Column(db.Numeric,nullable=False)   
+    ShopId=db.Column(db.Integer,ForeignKey('Shop.Id'),nullable=False)
+    shop= db.relationship("Shop", back_populates="Products")
+    category= db.relationship("Category", back_populates="Products")
+    images=db.relationship("ProductImage", back_populates="Products")
+    colors=db.relationship("RelColorProduct", back_populates="Products")
+    sizes=db.relationship("RelSizeProduct", back_populates="Products")
+    cart=db.relationship("Cart", back_populates="Products")
+    ratings=db.relationship("Rating", back_populates="Products")
+    order=db.relationship("Order", back_populates="Products")
+    notification=db.relationship("Notification", back_populates="Products")
+    favorite=db.relationship("Favorite", back_populates="Products")
+    def __repr__(self):
+        return f"Products('{self.Name}','{self.Count}','{self.CategoryId}','{self.Price}','{self.ShopId}')"
+class ProductImage(db.Model):
+    __tablename__='ProductImage'
+    Id=db.Column(db.Integer,primary_key=True)
+    ProductId=db.Column(db.Integer,ForeignKey('Products.Id'),nullable=False)
+    Image=db.Column(db.String(50),nullable=False)
+    product=db.relationship("Products", back_populates="ProductImage")
+
+    MainImageId=db.Column(db.Integer,nullable=False)
+    
+   
+    def __repr__(self):
+        return f"ProductImage('{self.ProductId}','{self.Image}','{self.MainImageId}')"
+class RelColorProduct(db.Model):
+    __tablename__='RelColorProduct'
+    Id=db.Column(db.Integer,primary_key=True)
+    ProductId=db.Column(db.Integer,ForeignKey('Products.Id'),nullable=False)
+    product=db.relationship("Products", back_populates="RelColorProduct")
+    ColorId=db.Column(db.Integer,ForeignKey('Color.Id'),nullable=False)
+    colors=db.relationship("Colors", back_populates="RelColorProduct")
+    def __repr__(self):
+        return f"RelColorProduct('{self.ProductId}','{self.ColorId}')"
+class RelSizeProduct(db.Model):
+    __tablename__='RelSizeProduct'
+    Id=db.Column(db.Integer,primary_key=True)
+    ProductId=db.Column(db.Integer,ForeignKey('Products.Id'),nullable=False)
+    product=db.relationship("Products", back_populates="RelSizeProduct")
+    SizeId=db.Column(db.Integer,ForeignKey('Size.Id'),nullable=False)
+    colors=db.relationship("Size", back_populates="RelSizeProduct")
+    def __repr__(self):
+        return f"RelSizeProduct('{self.ProductId}','{self.SizeId}')"
+class Cart(db.Model):
+
+    __tablename__='Cart'
+    Id=db.Column(db.Integer,primary_key=True)
+    UserId=db.Column(db.Integer,ForeignKey('User.Id'),nullable=False)
+    ProductId=db.Column(db.Integer,ForeignKey('Products.Id'),nullable=False)
+    Count=db.Column(db.Integer, nullable=False)
+    SizeId=db.Column(db.Integer,ForeignKey('Size.Id'),nullable=False)
+    ColorId=db.Column(db.Integer,ForeignKey('Color.Id'),nullable=False)
+    CreateDate=db.Column(db.DateTime,nullable=False)       
+    users= db.relationship("User", back_populates="Cart")
+    product=db.relationship("Products", back_populates="Cart")
+    colors=db.relationship("Color", back_populates="Cart")
+    sizes=db.relationship("Size", back_populates="Cart")
+
+    def __repr__(self):
+        return f"Cart('{self.UserId}','{self.ProductId}','{self.Count}','{self.SizeId}','{self.ColorId}','{self.CreateDate}')"
+class Rating(db.Model):
+    __tablename__='Rating'
+    Id=db.Column(db.Integer,primary_key=True)
+    ProductId=db.Column(db.Integer,ForeignKey('Products.Id'),nullable=False)
+    product=db.relationship("Products", back_populates="Rating")
+    UserId=db.Column(db.Integer,ForeignKey('User.Id'),nullable=False)
+    users=db.relationship("User", back_populates="Rating")
+    Amount=db.Column(db.Integer,nullable=False)
+
+    def __repr__(self):
+        return f"Rating('{self.ProductId}','{self.UserId}','{self.Amount}')"
+class Order(db.Model):
+    
+    __tablename__='Order'
+    Id=db.Column(db.Integer,primary_key=True)
+    UserId=db.Column(db.Integer,ForeignKey('User.Id'),nullable=False)
+    ProductId=db.Column(db.Integer,ForeignKey('Products.Id'),nullable=False)
+    Count=db.Column(db.Integer, nullable=False)
+    Price=db.Column(db.Numeric, nullable=False)
+    Status=db.Column(db.Integer, nullable=False)   
+    SizeId=db.Column(db.Integer,ForeignKey('Size.Id'),nullable=False)
+    ColorId=db.Column(db.Integer,ForeignKey('Color.Id'),nullable=False)
+    CreateDate=db.Column(db.DateTime,nullable=False)       
+    Amount=db.Column(db.Integer, nullable=False)
+    ShopId=db.Column(db.Integer,ForeignKey('Shop.Id'),nullable=False)
+    Total=db.Column(db.Numeric, nullable=False)
+    Address=db.Column(db.String(600), nullable=False)
+    Phone=db.Column(db.String(50), nullable=False)
+    users= db.relationship("User", back_populates="Order")
+    product=db.relationship("Products", back_populates="Order")
+    colors=db.relationship("Color", back_populates="Order")
+    sizes=db.relationship("Size", back_populates="Order")
+    shops=db.relationship("Shop", back_populates="Order")
+
+    def __repr__(self):
+        return f"Order('{self.UserId}','{self.ProductId}','{self.Count}','{self.Status}','{self.SizeId}','{self.ColorId}','{self.CreateDate}','{self.Amount}','{self.ShopId}','{self.Total}')"
+class Notification(db.Model):
+    __tablename__='Notification'
+    Id=db.Column(db.Integer,primary_key=True)
+    ProductId=db.Column(db.Integer,ForeignKey('Products.Id'),nullable=False)
+    product=db.relationship("Products", back_populates="Notification")
+    UserId=db.Column(db.Integer,ForeignKey('User.Id'),nullable=False)
+    users=db.relationship("User", back_populates="Notification")
+    Text=db.Column(db.String(500),nullable=False)
+
+    def __repr__(self):
+        return f"Notification('{self.ProductId}','{self.UserId}','{self.Text}')"
+class Favorite(db.Model):

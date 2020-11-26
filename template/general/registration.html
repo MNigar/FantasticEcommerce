@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+<head>
+    <meta charset="utf-8" />
+    
+    <title></title>
+    <style>
+        #center {
+            margin: auto;
+            width: 36%;
+            padding: 10px;
+        }
+        .error {
+        border-color: red !important;
+    }
+    </style>
+    
+</head>
+<body>
+
+    <div class="form-horizontal" id="center" style="margin-bottom:20%" >
+
+        <form id="Forms"  action="creg" method="post" >
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for message in messages %}
+                <h3>{{ message }}</h3>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    <label for="name">Ad</label>
+
+                    <input id="Name" name="Name" type="text" class="form-control" />
+
+                </div>
+            </div>
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    <label for="Surname">Soayd</label>
+
+                    <input id="Surname" name="Surname" type="text" class="form-control"   />
+
+                </div>
+            </div><div class="form-group">
+
+                <div class="col-md-10">
+                    <label for="phone">Telefon</label>
+
+                    <input id="phone" name="Phone" type="text" class="form-control"   />
+
+                </div>
+            </div>
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    <label for="email">Elektron ünvan</label>
+
+                    <input id="Email" name="Email" type="text" class="form-control"   />
+
+                </div>
+            </div>
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    <label for="password">Şifrə</label>
+
+                    <input id="password" name="Password" type="password" class="form-control"   />
+
+                </div>
+            </div>
+           
+           
+            <div class="form-group" >
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Qeydiyyatdan Keç" class="btn btn-primary"  />
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</body>
+</html>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.3.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+    
+    <script src="../assets/Validator.js"></script>
