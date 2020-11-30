@@ -5,23 +5,23 @@ from werkzeug.utils import secure_filename
 import os
 import random
 import string
-# @app.route('/admin')
-# def adminindex():
-#      return render_template('admin/index.html')
+@app.route('/admin')
+def adminindex():
+     return render_template('admin/index.html')
 
-# @app.route('/plist')
-# def plist():
-#      return render_template('admin/ecommerce-product-list.html')
+@app.route('/plist')
+def plist():
+     return render_template('admin/ecommerce-product-list.html')
 
-# @app.route('/shoplist')
-# def shoplist():
-#      return render_template('admin/shoplist.html')
-# @app.route('/userlist')
-# def userlist():
-#      return render_template('admin/userlist.html')
-# @app.route('/orderlist')
-# def orderlist():
-#      return render_template('admin/orderlist.html')
+@app.route('/shoplist')
+def shoplist():
+     return render_template('admin/shoplist.html')
+@app.route('/userlist')
+def userlist():
+     return render_template('admin/userlist.html')
+@app.route('/orderlist')
+def orderlist():
+     return render_template('admin/orderlist.html')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 def get_random_string(length):
@@ -82,7 +82,7 @@ def editcat(id):
 #ProductAdd
 @app.route('/addpr',methods=['GET','POST'])    
 def addpr():
-    
+    products = Products.query.all()
     sizes=Size.query.all()
     colors=Color.query.all()
     shops=Shop.query.all()
@@ -133,7 +133,7 @@ def addpr():
 
       db.session.commit()
 
-      return render_template('admin/addproduct.html',categorylist=catlist,sizelist=sizes,colorlist=colors,shoplist=shops)
+      return redirect(url_for('listp'))
     if request.method=='GET':
       return render_template('admin/addproduct.html',categorylist=catlist,sizelist=sizes,colorlist=colors,shoplist=shops)
 
@@ -214,9 +214,11 @@ def editp(id):
       if allowed_file(mainimage.filename):
     
         mainfilename=secure_filename(mainimage.filename)
-     
-        for image in files:
-          if allowed_file(image.filename):
+        if len(files) != 0:
+          for image in selectedproductobj.images:
+             db.session.delete(image)
+          for image in files:
+           if allowed_file(image.filename):
             filename = get_random_string(8) + secure_filename(image.filename)
             mainimage.save(os.path.join('ecommerce\\assets',app.config['UPLOAD_FOLDER'],mainfilename))
 
@@ -224,7 +226,7 @@ def editp(id):
 
             newPhoto = ProductImage(Image = os.path.join(app.config['UPLOAD_FOLDER'], filename), MainImage=os.path.join(app.config['UPLOAD_FOLDER'],mainfilename),iproduct = product)
             db.session.add(newPhoto) 
-          else:
+           else:
             flash("Non allowed file format")
             return "multipleerror"
       else:
@@ -233,3 +235,9 @@ def editp(id):
       db.session.commit()
   if request.method=='GET':
       return render_template('admin/editproduct.html',product=selectpr,categorylist=catlist,sizelist=sizes,colorlist=colors,shoplist=shops)
+
+#ProductCatlist
+@app.route('/catproduct/<int:id>', methods = ['GET'])
+def catproduct(id):
+  dbproductlist=Products.query.filter_by(CategoryId=id).all()
+  return render_template('admin/catproduct.html',productlist=dbproductlist)
