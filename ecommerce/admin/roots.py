@@ -258,6 +258,7 @@ def prodetails(id):
       shopId=request.form['ShopId']
       SizeId=request.form['size[]']
       ColorId=request.form['color[]']
+      productorder=Products(Name=name,Count=count,CategoryId=categoryId,Price=price,ShopId=shopId)
       return render_template('admin/order.html',order=productorder,SizeId=SizeId,ColorId=ColorId,ProductId=products.Id)
     else:
      return render_template('admin/productdetail.html',product=products)
