@@ -1,6 +1,5 @@
 from ecommerce import db
 
-
 class Size(db.Model):
     __tablename__ = 'Size'
     Id=db.Column(db.Integer,primary_key=True)

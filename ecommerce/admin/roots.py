@@ -7,23 +7,7 @@ from werkzeug.utils import secure_filename
 import os
 import random
 import string
-@app.route('/admin')
-def adminindex():
-     return render_template('admin/index.html')
 
-@app.route('/plist')
-def plist():
-     return render_template('admin/ecommerce-product-list.html')
-
-@app.route('/shoplist')
-def shoplist():
-     return render_template('admin/shoplist.html')
-@app.route('/userlist')
-def userlist():
-     return render_template('admin/userlist.html')
-@app.route('/orderlist')
-def orderlist():
-     return render_template('admin/orderlist.html')
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 def get_random_string(length):
@@ -35,6 +19,35 @@ def get_random_string(length):
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+@app.route('/admin')
+def adminindex():
+     return render_template('admin/index.html')
+
+@app.route('/plist')
+def plist():
+     return render_template('admin/ecommerce-product-list.html')
+#ShopList
+@app.route('/shoplist')
+def shoplist():
+    shoplist=Shop.query.filter_by(Status=0).all()
+    return render_template('admin/shoplist.html',shoplist=shoplist)
+#ShopDelete
+@app.route('/shopdelete/<int:id>')
+def shopdelete(id):
+    shopdelete=Shop.query.filter_by(Id=id).first()
+    shopdelete.Status=1
+
+    db.session.commit()    
+    return redirect(url_for('shoplist'))
+  
+    
+#userlist
+@app.route('/userlist')
+def userlist():
+  return render_template('admin/userlist.html')
+@app.route('/orderlist')
+def orderlist():
+     return render_template('admin/orderlist.html')
 #Categorylist
 @app.route('/catlist')
 def categorylist():
