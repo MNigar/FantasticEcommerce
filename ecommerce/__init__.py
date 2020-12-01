@@ -28,5 +28,5 @@ migrate = Migrate(app, db,render_as_batch=True)
 # migrate = Migrate(app, db,render_as_batch=True)
 # manager=Manager(app)
 # manager.add_command('db',MigrateCommand)
-import ecommerce.admin.roots 
+import ecommerce.admin.roots
 import ecommerce.Auth.roots 

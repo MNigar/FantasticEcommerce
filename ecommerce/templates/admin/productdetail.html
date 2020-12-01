@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -383,7 +382,7 @@
             <!-- Page Content-->
             <div class="page-content-tab">
 
-                <div class="container-fluid">
+                <div class="container">
                     <!-- Page-Title -->
                     <div class="row">
                         <div class="col-sm-12">
@@ -392,96 +391,92 @@
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="javascript:void(0);">Metrica</a></li>
                                         <li class="breadcrumb-item"><a href="javascript:void(0);">Ecommerce</a></li>
-                                        <li class="breadcrumb-item active">List</li>
+                                        <li class="breadcrumb-item active">Detail</li>
                                     </ol>
                                 </div>
-                                <h4 class="page-title">Məhsulların siyahısı</h4>
+                                <h4 class="page-title">Procuct Detail</h4>
                             </div><!--end page-title-box-->
                         </div><!--end col-->
                     </div>
                     <!-- end page title end breadcrumb -->
+                    <form id="Forms" action="{{url_for('prodetails', id = product.Id)}}" method="POST" enctype="multipart/form-data">
+
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-    
-                            <a href="{{url_for('addpr')}}"  class="btn btn-primary" > Məhsul əlavə edin</a> 
-                                    <p class="text-muted mb-4 font-13">
-                                       
-                                    </p>
-    
-                                    <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                        <thead>
-                                        <tr>
-                                            <tr>
+                                    <div class="row">
+                                        <div class="col-lg-6 align-self-center">
 
-                                                <th>ID</th>
-                                                <th>Ad</th>
-                                                <th>Mağaza</th>
-                                                <th>Rənglər</th>
-                                                <th>Ölçülər</th>
-                                                <th>Say</th>
-                                                <th>Qiymət</th>
-                                                <th>Şəkil</th>
-                                                <th>Düzəliş</th>
-                                        
-                                        
-                                            </tr>
-                                        </tr>
-                                        </thead>
-    
-    
-                                        <tbody>
-                                           
-                                              {% for product in allpr %}
-                                        <tr>
-                                          <td>{{product.Id}}</td>
-                                         <td>{{product.Name}}</td>
-                                         <td>{{product.Shop.Name}}</td>
-                                         <td>
-                                            {% for element in product.pcolors %}
-                                                <p>{{element.Name}}</p>
-                                            {% endfor %}
-                                        </td>
-                                        <td>
-                                            {% for element in product.psizes %}
-                                                <p>{{element.Name}}</p>
-                                            {% endfor %}
-                                        </td>
-                                        <td>{{product.Count}}</td>
-                                        <td>{{product.Price}} AZN</td>
-                                        <td>
                                             {% for image in product.images %}
                                             
                                             <img width="400px" style="margin: 10px;" src="{{url_for('static', filename ='upload/'+ image.Image)}}" alt="">
                                   
                                             {% endfor %}
-                                         </td>
-      
-                                         <td>
-       
-                                            <a href="/deletep/{{product.Id}}" class="btn btn-primary">Sil</a>
-                                            
-                                        
-                                            <a href="/editp/{{ product.Id }}" class="btn btn-primary">Dəyiş</a>
-                                            <a href="/prodetails/{{ product.Id }}" class="btn btn-primary">detal
-                                            </a>
+                                       
+                                        </div><!--end col-->
+                                        <form id="Forms" action="{{url_for('prodetails', id = product.Id)}}" method="POST" enctype="multipart/form-data">
 
-                                        </td>
-                                      </tr>
+                                        <div class="col-lg-6 align-self-center">
+                                            <div class="single-pro-detail">
+                                                
+                                                <div class="custom-border mb-3"></div>
+                                                <div>
+                                                <label><h5> Mağaza:{{product.Shop.Name}} </h5></label>
+                                            </div>
+                                                <label><h5> Ad:{{product.Name}} </h5></label>
+                                                <label><h5> Kateqoriya:{{product.Category.Name}} </h5></label>
 
-                                      {% endfor %}
-      
-   
-                                        </tbody>
-                                    </table>        
-                                </div>
-                            </div>
-                        </div> <!-- end col -->
-                    </div> <!-- end row -->
+                                              
+                                                <h6 class="text-muted font-13 d-inline-block align-middle mr-2">Rəng :</h6> 
+                                                <div class="radio2 radio-info2 form-check-inline ml-2">
+                                                    <!-- <input type="radio" id="inlineRadio1" value="option1" name="radioInline" checked="">
+                                                    <label for="inlineRadio1"></label> -->
+                                                    <select name='color[]' class="custom-select" id="status-select" >
+                                                        {% for each in  product.pcolors %}
+                                                            <option value="{{each.Id}}">{{each.Name}}</option>
+                                                          {% endfor %}
+                                                      </select>
+                                                     
+                                                </div>
+                                                <div>
+                                                    <h6 class="text-muted font-13 d-inline-block align-middle mr-2">Ölçü :</h6> 
 
-                </div><!-- container -->
+                                                    <select name='size[]' class="custom-select" id="status-select" >
+                                                        {% for each in  product.psizes %}
+                                                            <option value="{{each.Id}}">{{each.Name}}</option>
+                                                          {% endfor %}
+                                                      </select>
+                                                </div>
+                                                <label for="count"><h5>Say</h5></label>
+                                                <input id="Count" name="Count" type="number" class="form-control" />    
+                                                
+                                                <label><h5> Qiymət:{{product.Price}} AZN</h5></label>
+                                                <ul class="list-inline mb-2 product-review">
+                                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                    <li class="list-inline-item"><i class="mdi mdi-star text-warning"></i></li>
+                                                    <li class="list-inline-item"><i class="mdi mdi-star-half text-warning"></i></li>
+                                                    <li class="list-inline-item">4.5 (9830 reviews)</li>
+                                                </ul>
+                                                <div class="quantity mt-3 ">
+                                                    <a href="" class="btn btn-primary btn-sm text-white px-4 d-inline-block"><i class="mdi mdi-cart mr-2"></i>Add to Cart</a>
 
+                                                </div>   
+                                                <div class="quantity mt-3 ">
+
+                                                <a href="/order/{{product.Id}}/"btn btn-primary btn-sm text-white px-4 d-inline-block"><i class="mdi mdi-cart mr-2"></i>Sifariş edin </a>
+
+                                            </div>   
+
+                                            </div>
+                                        </div><!--end col-->                                            
+                                    </div><!--end row-->
+                                </div><!--end card-body-->
+                            </div><!--end card-->
+                        </div><!--end col-->
+                    </div><!--end row-->
                 <!--  Modal content for the above example -->
                 <div class="modal modal-rightbar fade" tabindex="-1" role="dialog" aria-labelledby="MetricaRightbar" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">

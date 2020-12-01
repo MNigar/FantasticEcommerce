@@ -1,4 +1,4 @@
-from ecommerce import db 
+from ecommerce import db
 
 
 class Size(db.Model):
@@ -106,3 +106,28 @@ class Rating(db.Model):
     ProductId=db.Column(db.Integer,db.ForeignKey('Products.Id'),nullable=False)
     UserId=db.Column(db.Integer,db.ForeignKey('User.Id'),nullable=False)
     Amount=db.Column(db.Integer,nullable=False)
+
+class Order(db.Model):
+    
+    __tablename__='Order'
+    Id=db.Column(db.Integer,primary_key=True)
+    UserId=db.Column(db.Integer,db.ForeignKey('User.Id'),nullable=False)
+    ProductId=db.Column(db.Integer,db.ForeignKey('Products.Id'),nullable=False)
+    Count=db.Column(db.Integer, nullable=False)
+    Price=db.Column(db.Numeric, nullable=False)
+    Status=db.Column(db.Integer, nullable=False)   
+    SizeId=db.Column(db.Integer,db.ForeignKey('Size.Id'),nullable=False)
+    ColorId=db.Column(db.Integer,db.ForeignKey('Color.Id'),nullable=False)
+    CreateDate=db.Column(db.DateTime,nullable=False)       
+    ShopId=db.Column(db.Integer,db.ForeignKey('Shop.Id'),nullable=False)
+    Total=db.Column(db.Numeric, nullable=False)
+    Address=db.Column(db.String(600), nullable=False)
+    Phone=db.Column(db.String(50), nullable=False)
+    users=db.relationship('User',backref="Order",lazy='select')
+    product=db.relationship("Products", backref="Order",lazy='select')
+    colors=db.relationship("Color", backref="Order",lazy='select')
+    sizes=db.relationship("Size",backref="Order",lazy='select')
+    shops=db.relationship("Shop", backref="Order",lazy='select')
+
+    def __repr__(self):
+        return f"Order('{self.UserId}','{self.ProductId}','{self.Count}','{self.Status}','{self.SizeId}','{self.ColorId}','{self.CreateDate}','{self.Amount}','{self.ShopId}','{self.Total}')"

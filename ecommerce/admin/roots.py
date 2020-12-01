@@ -1,6 +1,8 @@
 from ecommerce import app,db
 from ecommerce.models import *
 from flask import Flask,render_template,url_for,request,redirect
+from datetime import datetime
+
 from werkzeug.utils import secure_filename
 import os
 import random
@@ -79,6 +81,8 @@ def editcat(id):
     return redirect (url_for('categorylist'))
  return render_template('admin/editcategory.html',currentcat=cat,catl=catlist)
 
+
+
 #ProductAdd
 @app.route('/addpr',methods=['GET','POST'])    
 def addpr():
@@ -123,7 +127,7 @@ def addpr():
 
             image.save(os.path.join('ecommerce\\assets', app.config['UPLOAD_FOLDER'], filename))
 
-            newPhoto = ProductImage(Image = os.path.join(app.config['UPLOAD_FOLDER'], filename), MainImage=os.path.join(app.config['UPLOAD_FOLDER'],mainfilename),iproduct = product)
+            newPhoto = ProductImage(Image = filename, MainImage=os.path.join(app.config['UPLOAD_FOLDER'],mainfilename),iproduct = product)
             db.session.add(newPhoto) 
           else:
             flash("Non allowed file format")
@@ -241,3 +245,47 @@ def editp(id):
 def catproduct(id):
   dbproductlist=Products.query.filter_by(CategoryId=id).all()
   return render_template('admin/catproduct.html',productlist=dbproductlist)
+
+#ProductDetail
+@app.route('/prodetails/<int:id>', methods = ['GET'])
+def prodetails(id):
+    products=Products.query.filter_by(Id=id).first()
+    if request.method == 'POST':
+      categoryId=request.form['CategoryId']
+      name=request.form['Name']
+      count=request.form['Count']
+      price=int(request.form['Price'])
+      shopId=request.form['ShopId']
+      SizeId=request.form['size[]']
+      ColorId=request.form['color[]']
+      return render_template('admin/order.html',order=productorder,SizeId=SizeId,ColorId=ColorId,ProductId=products.Id)
+    else:
+     return render_template('admin/productdetail.html',product=products)
+
+#Order
+@app.route('/order/<int:productid>', methods = ['GET','POST'])
+def order(productid,SizeId,ColorId):
+    product=Products.query.filter_by(Id=productid).first()
+
+    if request.method == 'POST':
+      UserId=1;
+      ProductId=products.id
+      categoryId=request.form['CategoryId']
+      count=request.form['Count']
+      price=int(request.form['Price'])
+      shopId=request.form['ShopId']
+      SizeId=request.form['SizeId']
+      ColorId=request.form['ColorId']
+      Status=0
+      CreateDate=datetime.now()
+      Total=price
+      Address=request.form['Address']
+      Phone=request.form['Phone']
+      
+      order=Order(ProductId=ProductId,UserId=UserId,CategoryId=categoryId,Count=count,Price=price,shopId=ShopId,SizeId=SizeId,ColorId=ColorId,Status=Status,CreateDate=CreateDate,Address=Address,Total=Total,Phone=Phone)
+      return "Success"
+    else:
+      return render_template('admin/order.html',product,SizeId,ColorId)
+
+  
+
