@@ -259,18 +259,20 @@ def prodetails(id):
       SizeId=request.form['size[]']
       ColorId=request.form['color[]']
       productorder=Products(Name=name,Count=count,CategoryId=categoryId,Price=price,ShopId=shopId)
+      # return render_template('admin/order.html',order=productorder,SizeId=SizeId,ColorId=ColorId,ProductId=products.Id)
       return render_template('admin/order.html',order=productorder,SizeId=SizeId,ColorId=ColorId,ProductId=products.Id)
+
     else:
      return render_template('admin/productdetail.html',product=products)
 
 #Order
 @app.route('/order/<int:productid>', methods = ['GET','POST'])
-def order(productid,SizeId,ColorId):
+def order(productid):
     product=Products.query.filter_by(Id=productid).first()
 
     if request.method == 'POST':
-      UserId=1;
-      ProductId=products.id
+      UserId=1
+      ProductId=product.id
       categoryId=request.form['CategoryId']
       count=request.form['Count']
       price=int(request.form['Price'])
@@ -283,10 +285,10 @@ def order(productid,SizeId,ColorId):
       Address=request.form['Address']
       Phone=request.form['Phone']
       
-      order=Order(ProductId=ProductId,UserId=UserId,CategoryId=categoryId,Count=count,Price=price,shopId=ShopId,SizeId=SizeId,ColorId=ColorId,Status=Status,CreateDate=CreateDate,Address=Address,Total=Total,Phone=Phone)
+      order=Order(ProductId=ProductId,UserId=UserId,CategoryId=categoryId,Count=count,Price=price,ShopId=shopId,SizeId=SizeId,ColorId=ColorId,Status=Status,CreateDate=CreateDate,Address=Address,Total=Total,Phone=Phone)
       return "Success"
-    else:
-      return render_template('admin/order.html',product,SizeId,ColorId)
+    if request.method == 'GET':
+      return render_template('admin/order.html',product=product)
 
   
 

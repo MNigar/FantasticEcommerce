@@ -1,5 +1,5 @@
 <div class="form-horizontal" id="center" style="margin-bottom:20%" >
-    <form id="Forms" action="{{url_for('order', productid = product.Id,SizeId=SizeId,ColorId=ColorId)}}" method="POST" enctype="multipart/form-data">
+    <form id="Forms" action="{{url_for('order', productid = product.Id)}}" method="POST" >
         
         <div class="form-group">
             {% with messages = get_flashed_messages() %}
