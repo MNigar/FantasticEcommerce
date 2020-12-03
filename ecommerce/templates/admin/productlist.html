@@ -79,7 +79,7 @@
                                         <td>
                                             {% for image in product.images %}
                                             
-                                            <img width="400px" style="margin: 10px;" src="{{url_for('static', filename ='upload/'+ image.Image)}}" alt="">
+                                            <img width="400px" style="margin: 10px;" src="{{url_for('static', filename ='upload/'+ image.MainImage)}}" alt="">
                                   
                                             {% endfor %}
                                          </td>

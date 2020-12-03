@@ -36,7 +36,7 @@
 
                                             {% for image in product.images %}
                                             
-                                            <img width="400px" style="margin: 10px;" src="{{url_for('static', filename ='upload/'+ image.Image)}}" alt="">
+                                            <img width="400px" style="margin: 10px;" src="{{url_for('static', filename ='upload/'+ image.MainImage)}}" alt="">
                                   
                                             {% endfor %}
                                        
@@ -50,7 +50,7 @@
                                                 <div>
                                                 <label><h5> Mağaza:{{product.Shop.Name}} </h5></label>
                                             </div>
-                                                <label><h5> Ad:{{product.Name}} </h5></label>
+                                                <label><h5 id="Name"> Ad:{{product.Name}} </h5></label>
                                                 <label><h5> Kateqoriya:{{product.Category.Name}} </h5></label>
 
                                               
@@ -58,7 +58,7 @@
                                                 <div class="radio2 radio-info2 form-check-inline ml-2">
                                                     <!-- <input type="radio" id="inlineRadio1" value="option1" name="radioInline" checked="">
                                                     <label for="inlineRadio1"></label> -->
-                                                    <select name='color[]' class="custom-select" id="status-select" >
+                                                    <select name='color[]' id="color[]" class="custom-select" id="status-select" >
                                                         {% for each in  product.pcolors %}
                                                             <option value="{{each.Id}}">{{each.Name}}</option>
                                                           {% endfor %}
@@ -68,7 +68,7 @@
                                                 <div>
                                                     <h6 class="text-muted font-13 d-inline-block align-middle mr-2">Ölçü :</h6> 
 
-                                                    <select name='size[]' class="custom-select" id="status-select" >
+                                                    <select name='size[]' id="size[]" class="custom-select" id="status-select" >
                                                         {% for each in  product.psizes %}
                                                             <option value="{{each.Id}}">{{each.Name}}</option>
                                                           {% endfor %}
@@ -87,12 +87,13 @@
                                                     <li class="list-inline-item">4.5 (9830 reviews)</li>
                                                 </ul>
                                                 <div class="quantity mt-3 ">
-                                                    <a href="" class="btn btn-primary btn-sm text-white px-4 d-inline-block"><i class="mdi mdi-cart mr-2"></i>Add to Cart</a>
+                                                    <a href=""  class="btn btn-primary btn-sm text-white px-4 d-inline-block"><i class="mdi mdi-cart mr-2"></i>Add to Cart</a>
 
                                                 </div>   
+                                               
                                                 <div class="quantity mt-3 ">
 
-                                                <a href="/order/{{product.Id}}/"btn btn-primary btn-sm text-white px-4 d-inline-block"><i class="mdi mdi-cart mr-2"></i>Sifariş edin </a>
+                                                <a href="/order/{{product.Id}}" class="btn btn-primary btn-sm text-white px-4 d-inline-block" onclick="GetSelectedValue()"><i class="mdi mdi-cart mr-2"></i>Sifariş edin </a>
 
                                             </div>   
 
@@ -107,7 +108,24 @@
          
         
    
-    {% endblock %}
+    <script>
+    function GetSelectedValue(){
+        
+    var size=document.getElementById("size[]");
+    var result = size.options[size.selectedIndex];
+    sessionStorage.setItem('sizes',result.value);
+    sessionStorage.getItem('sizes');
+    var color=document.getElementById("color[]");
+    var result1 = color.options[color.selectedIndex];
+    sessionStorage.setItem('colors',result1.value);
+    sessionStorage.getItem('colors');
+    var count=document.getElementById("Count");
+    sessionStorage.setItem('Count',count.value);
+    sessionStorage.getItem('Count');
+    }
+    </script>
+        {% endblock %}
+
     </html>
 
 

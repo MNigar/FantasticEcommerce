@@ -122,11 +122,13 @@ class Order(db.Model):
     Total=db.Column(db.Numeric, nullable=False)
     Address=db.Column(db.String(600), nullable=False)
     Phone=db.Column(db.String(50), nullable=False)
+    Email=db.Column(db.String(50), nullable=False)
+
     users=db.relationship('User',backref="Order",lazy='select')
     product=db.relationship("Products", backref="Order",lazy='select')
     colors=db.relationship("Color", backref="Order",lazy='select')
     sizes=db.relationship("Size",backref="Order",lazy='select')
     shops=db.relationship("Shop", backref="Order",lazy='select')
-
+    
     def __repr__(self):
         return f"Order('{self.UserId}','{self.ProductId}','{self.Count}','{self.Status}','{self.SizeId}','{self.ColorId}','{self.CreateDate}','{self.Amount}','{self.ShopId}','{self.Total}')"

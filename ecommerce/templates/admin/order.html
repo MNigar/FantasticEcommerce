@@ -1,74 +1,85 @@
-<div class="form-horizontal" id="center" style="margin-bottom:20%" >
+<!DOCTYPE html>
+<html lang="en">
+    {% extends "admin/layout.html" %}
+    {% block body %}
+
+        <div class="page-wrapper">
+
+            <!-- Page Content-->
+            <div class="page-content-tab">
+
+                <div class="container">
+                    <!-- Page-Title -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="page-title-box">
+                                <div class="float-right">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Metrica</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Ecommerce</a></li>
+                                        <li class="breadcrumb-item active">Detail</li>
+                                    </ol>
+                                </div>
+                                <h4 class="page-title">Procuct Detail</h4>
+                            </div><!--end page-title-box-->
+                        </div><!--end col-->
+                    </div>
+                    <!-- end page title end breadcrumb -->
+
     <form id="Forms" action="{{url_for('order', productid = product.Id)}}" method="POST" >
         
-        <div class="form-group">
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
-              {% for message in messages %}
-                <h3>{{ message }}</h3>
-              {% endfor %}
-            {% endif %}
-            {% endwith %}
+            
             <div class="form-group">
 
               <div class="col-md-10">
-                <input id="ProductId" name="ProductId" value="{{product.Id}}" type="text" class="form-control" />
+                <input id="ProductId" name="ProductId" value="{{product.Id}}" type="hidden" class="form-control" />
+               
+                </div>
+              </div>
+            <div class="form-group">
+
+              <div class="col-md-10">
+               
+                <label>Məhsulun adı</label>
 
                 <input id="Name" name="Name" value="{{product.Name}}" type="text" class="form-control" />
                 </div>
               </div>
-              <div class="form-group">
-
-                <div class="col-md-10">
-                <input id="Count" name="Count" type="number"  value="{{product.Count}}"class="form-control" />
-              </div>
-            </div>
+              
                 <div class="form-group">
 
                   <div class="col-md-10">
+                    <label>Qiymət</label>
+
                 <input id="Price" name="Price" type="text" class="form-control" value="{{product.Price}}" />
               </div>
             </div>
+                
                 <div class="form-group">
 
                   <div class="col-md-10">
-                <input id="CategoryId" name="CategoryId" type="text" class="form-control" value="{{product.CategoryId}}" />
 
-              </div>
-            </div>
-                <div class="form-group">
-
-                  <div class="col-md-10">
-                <input id="ShopId" name="ShopId" type="text" class="form-control" value="{{product.ShopId}}" />
+                <input id="ShopId" name="ShopId" type="hidden" class="form-control" value="{{product.ShopId}}" />
 
                
               </div>
             </div>
+<input type="hidden" id="F" name="size" >
+<input type="hidden" id="color" name="color" >
+<input type="hidden" id="count" name="count" >
+
                 <!-- <select name='SizeId'  >
                     {% for each in sizelist %}
                       <option value="{{each.Id}}">{{each.Name}}</option>
                     {% endfor %}
                 </select> -->
-                <div class="form-group">
-
-                  <div class="col-md-10">
-
-                <input id="ColorId" name="ColorId" type="text" class="form-control" value="{{ColorId}}" />
-
-                </div>
-              </div>
-                  <div class="form-group">
-
-                    <div class="col-md-10">
-                        <input id="SizeId" name="SizeId" type="text" class="form-control" value="{{SizeId}}" />
-
-                </div>
-              </div>
+                
                 
               <div class="form-group">
 
                 <div class="col-md-10">
-              <input id="Address" name="Address" type="text" class="form-control"  />
+                  <label>Adres*</label>
+              <input id="Address" name="Address" type="text" class="form-control"  required />
 
              
             </div>
@@ -76,8 +87,21 @@
           <div class="form-group">
 
             <div class="col-md-10">
-          <input id="Phone" name="Phone" type="text" class="form-control"  />
+              <label>Elektron Ünvar*</label>
+          <input id="Email" name="Email" type="text" class="form-control" required />
 
+         
+        </div>
+      </div>
+      
+
+          <div class="form-group">
+
+            <div class="col-md-10">
+              <label>Əlaqə Nömrəsi</label>
+
+          <input id="Phone" name="Phone" type="text" class="form-control" required />
+          
          
         </div>
       </div>
@@ -85,10 +109,46 @@
        
         <div class="form-group" >
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Əlavə et" class="btn btn-primary"  />
+              <button onclick="run()" class="btn btn-primary"> 
+                Tamamla
+              </button> 
             </div>
         </div>
 
 
     </form>
 </div>
+</div>
+</div>
+</div>
+<script>
+    var inputF = document.getElementById("F"); 
+    var color=document.getElementById("color")
+    var count=document.getElementById("count")
+
+function run(){
+  
+    inputF.value=sessionStorage.getItem("sizes")
+    color.value=sessionStorage.getItem("colors")
+    count.value=sessionStorage.getItem("Count")
+
+
+}
+function get(){
+        var dropselvalue = parseInt(sessionStorage.getItem("sizes"));
+        var dropselvalue = parseInt(sessionStorage.getItem("colors"));
+
+        var dropselvalue = parseInt(sessionStorage.getItem("Count"));
+        var inputF = document.getElementById("F"); 
+        inputF.value=sessionStorage.getItem("sizes")
+
+       
+    };
+  $(window).on("load", function() { 
+    var dropselvalue = parseInt(sessionStorage.getItem("sizes"));
+    var inputF = document.getElementById("F"); 
+        inputF.value=dropselvalue
+});
+</script>
+{% endblock %}
+</html>

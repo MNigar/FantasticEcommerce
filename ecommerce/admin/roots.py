@@ -2,11 +2,37 @@ from ecommerce import app,db
 from ecommerce.models import *
 from flask import Flask,render_template,url_for,request,redirect
 from datetime import datetime
+from flask_mail import Mail, Message
 
 from werkzeug.utils import secure_filename
 import os
 import random
 import string
+
+
+# import smtplib,ssl
+# gmail_user = "nigarmammadova4t@gmail.com"
+# gmail_pwd = "slbxfpxgewqtctcy"
+# TO = 'nigar-4t@live.com'
+# SUBJECT = "Testing sending using gmail"
+# TEXT = "Testing sending mail using gmail servers"
+# server = smtplib.SMTP_SSL('smtp.googlemail.com', 587)
+# server.starttls()
+# server.ehlo()
+
+# server.login(gmail_user, gmail_pwd)
+# BODY = 'mmm,m'
+
+# server.sendmail(gmail_user, TO, BODY)
+mail= Mail(app)
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'nigarmammadova4t@gmail.com'
+app.config['MAIL_PASSWORD'] = 'jracenqhiyxfyryx'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
@@ -18,6 +44,18 @@ def get_random_string(length):
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+@app.route('/orderl/<int:id>')
+def orderl(id):
+    order=Order.query.filter_by(UserId=id).all()
+    
+    return render_template('admin/orderl.html',order=order)
+#orderdelete
+@app.route('/delorder/<int:id>')    
+def delorder(id):
+    order=Order.query.filter_by(Id=id).delete()
+    db.session.commit()
+    return redirect(url_for('listp'))
+
 
 @app.route('/admin')
 def adminindex():
@@ -25,7 +63,10 @@ def adminindex():
 
 @app.route('/plist')
 def plist():
-     return render_template('admin/ecommerce-product-list.html')
+      msg = Message('Salam', sender = 'nigarmammadova4t@gmail.com', recipients = ['samir@pragmatech.az '])
+      msg.body = "Müəllim sifarişiniz qəbul olundu :D"
+      mail.send(msg)
+      return render_template('admin/ecommerce-product-list.html')
 #ShopList
 @app.route('/shoplist')
 def shoplist():
@@ -41,13 +82,8 @@ def shopdelete(id):
     return redirect(url_for('shoplist'))
   
     
-#userlist
-@app.route('/userlist')
-def userlist():
-  return render_template('admin/userlist.html')
-@app.route('/orderlist')
-def orderlist():
-     return render_template('admin/orderlist.html')
+
+
 #Categorylist
 @app.route('/catlist')
 def categorylist():
@@ -95,7 +131,6 @@ def editcat(id):
  return render_template('admin/editcategory.html',currentcat=cat,catl=catlist)
 
 
-
 #ProductAdd
 @app.route('/addpr',methods=['GET','POST'])    
 def addpr():
@@ -140,7 +175,7 @@ def addpr():
 
             image.save(os.path.join('ecommerce\\assets', app.config['UPLOAD_FOLDER'], filename))
 
-            newPhoto = ProductImage(Image = filename, MainImage=os.path.join(app.config['UPLOAD_FOLDER'],mainfilename),iproduct = product)
+            newPhoto = ProductImage(Image = filename, MainImage=mainfilename,iproduct = product)
             db.session.add(newPhoto) 
           else:
             flash("Non allowed file format")
@@ -259,49 +294,8 @@ def catproduct(id):
   dbproductlist=Products.query.filter_by(CategoryId=id).all()
   return render_template('admin/catproduct.html',productlist=dbproductlist)
 
-#ProductDetail
-@app.route('/prodetails/<int:id>', methods = ['GET'])
-def prodetails(id):
-    products=Products.query.filter_by(Id=id).first()
-    if request.method == 'POST':
-      categoryId=request.form['CategoryId']
-      name=request.form['Name']
-      count=request.form['Count']
-      price=int(request.form['Price'])
-      shopId=request.form['ShopId']
-      SizeId=request.form['size[]']
-      ColorId=request.form['color[]']
-      productorder=Products(Name=name,Count=count,CategoryId=categoryId,Price=price,ShopId=shopId)
-      # return render_template('admin/order.html',order=productorder,SizeId=SizeId,ColorId=ColorId,ProductId=products.Id)
-      return render_template('admin/order.html',order=productorder,SizeId=SizeId,ColorId=ColorId,ProductId=products.Id)
 
-    else:
-     return render_template('admin/productdetail.html',product=products)
-
-#Order
-@app.route('/order/<int:productid>', methods = ['GET','POST'])
-def order(productid):
-    product=Products.query.filter_by(Id=productid).first()
-
-    if request.method == 'POST':
-      UserId=1
-      ProductId=product.id
-      categoryId=request.form['CategoryId']
-      count=request.form['Count']
-      price=int(request.form['Price'])
-      shopId=request.form['ShopId']
-      SizeId=request.form['SizeId']
-      ColorId=request.form['ColorId']
-      Status=0
-      CreateDate=datetime.now()
-      Total=price
-      Address=request.form['Address']
-      Phone=request.form['Phone']
-      
-      order=Order(ProductId=ProductId,UserId=UserId,CategoryId=categoryId,Count=count,Price=price,ShopId=shopId,SizeId=SizeId,ColorId=ColorId,Status=Status,CreateDate=CreateDate,Address=Address,Total=Total,Phone=Phone)
-      return "Success"
-    if request.method == 'GET':
-      return render_template('admin/order.html',product=product)
-
-  
-
+@app.route('/userlist')
+def userlist():
+  userlist=User.query.filter_by(UserTypeId=4).all()
+  return render_template('admin/userlist.html',userlist=userlist)

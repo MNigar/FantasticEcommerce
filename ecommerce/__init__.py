@@ -23,6 +23,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{config("dbuser")}:{config("db
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 UPLOAD_FOLDER = 'upload'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 db=SQLAlchemy(app)
 migrate = Migrate(app, db,render_as_batch=True)
 # migrate = Migrate(app, db,render_as_batch=True)
@@ -30,3 +31,4 @@ migrate = Migrate(app, db,render_as_batch=True)
 # manager.add_command('db',MigrateCommand)
 import ecommerce.admin.roots
 import ecommerce.Auth.roots 
+import ecommerce.client.roots

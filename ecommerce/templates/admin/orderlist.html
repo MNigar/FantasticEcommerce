@@ -404,9 +404,10 @@
     
     
                                         <tbody>
+                                            {% for i in order%}
                                         <tr>
-                                            <td>0001</td>
-                                            <td>Koynek</td>
+                                            <td>kmklmk</td>
+                                            <td>{{i.product.Name}}</td>
                                             <td>PR</td>
                                             <td>58.8 AZn</td>
                                             <td>Sifariş Verilib</td>
@@ -414,6 +415,7 @@
                                                 <a href=""><i class="far fa-trash-alt text-danger"></i></a>
                                             </td>
                                         </tr>
+                                        {% endfor %}
                                         </tbody>
                                     </table>        
                                 </div>

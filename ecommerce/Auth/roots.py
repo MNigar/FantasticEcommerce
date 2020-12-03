@@ -40,7 +40,7 @@ def creg():
       phone=request.form['Phone']
       email=request.form['Email']     
       password=request.form['Password']
-      usertypeid=3
+      usertypeid=4
       user=User(Name=name,Surname=surname,Phone=phone,Email=email,Password=password,UserTypeId=usertypeid)
       db.session.add(user)     
       db.session.commit()
@@ -65,7 +65,7 @@ def sreg():
       phone=request.form['Phone']
       email=request.form['Email']     
       password=request.form['Password']  
-      usertypeid=2
+      usertypeid=3
       user=User(Name=name,Surname=surname,Phone=phone,Email=email,Password=password,UserTypeId=usertypeid)
       db.session.add(user)
       db.session.commit()
