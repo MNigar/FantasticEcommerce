@@ -7,7 +7,17 @@ from werkzeug.utils import secure_filename
 import os
 import random
 import string
+from flask_mail import Mail, Message
 
+mail= Mail(app)
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'nigarmammadova4t@gmail.com'
+app.config['MAIL_PASSWORD'] = 'jracenqhiyxfyryx'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
 #ProductDetail
 @app.route('/prodetails/<int:id>', methods = ['GET','POST'])
 def prodetails(id):
@@ -48,8 +58,15 @@ def order(productid):
       Phone=request.form['Phone']
       Email=request.form['Email']
       order=Order(ProductId=ProductId,UserId=UserId,Count=count,Price=price,ShopId=shopId,SizeId=SizeId,ColorId=ColorId,Status=Status,CreateDate=CreateDate,Address=Address,Total=Total,Phone=Phone,Email=Email)
+      ordername=Products.query.filter_by(Id=order.ProductId).first()
+      ordersize=Size.query.filter_by(Id=SizeId).first()
+      ordercolor=Color.query.filter_by(Id=ColorId).first()
+
       db.session.add(order)
       db.session.commit()
+      msg = Message('Salam', sender = 'nigarmammadova4t@gmail.com', recipients = [order.Email])
+      msg.body = f'{order.Id} nömrəli sifarişiniz icra olundu. Sfiraişin detalı:{ordername.Name} Ölçü :{ordersize.Name} Rəng:{ordercolor.Name}   Qiymət:{order.Price}'   
+      mail.send(msg)
       return "Success"
     if request.method == 'GET':
       return render_template('admin/order.html',product=product)

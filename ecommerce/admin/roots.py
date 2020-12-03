@@ -2,7 +2,6 @@ from ecommerce import app,db
 from ecommerce.models import *
 from flask import Flask,render_template,url_for,request,redirect
 from datetime import datetime
-from flask_mail import Mail, Message
 
 from werkzeug.utils import secure_filename
 import os
@@ -10,29 +9,7 @@ import random
 import string
 
 
-# import smtplib,ssl
-# gmail_user = "nigarmammadova4t@gmail.com"
-# gmail_pwd = "slbxfpxgewqtctcy"
-# TO = 'nigar-4t@live.com'
-# SUBJECT = "Testing sending using gmail"
-# TEXT = "Testing sending mail using gmail servers"
-# server = smtplib.SMTP_SSL('smtp.googlemail.com', 587)
-# server.starttls()
-# server.ehlo()
 
-# server.login(gmail_user, gmail_pwd)
-# BODY = 'mmm,m'
-
-# server.sendmail(gmail_user, TO, BODY)
-mail= Mail(app)
-
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'nigarmammadova4t@gmail.com'
-app.config['MAIL_PASSWORD'] = 'jracenqhiyxfyryx'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-mail = Mail(app)
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
@@ -63,9 +40,7 @@ def adminindex():
 
 @app.route('/plist')
 def plist():
-      msg = Message('Salam', sender = 'nigarmammadova4t@gmail.com', recipients = ['samir@pragmatech.az '])
-      msg.body = "Müəllim sifarişiniz qəbul olundu :D"
-      mail.send(msg)
+     
       return render_template('admin/ecommerce-product-list.html')
 #ShopList
 @app.route('/shoplist')
