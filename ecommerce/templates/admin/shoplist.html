@@ -43,7 +43,9 @@
                                             <th>Mağaza Adı</th>
                                             
                     
-                                            <th>Düzəliş</th>
+                                            <th>Aktivləşdirmək</th>
+                                            <th>Düzəliş et</th>
+
                                         </tr>
                                         </thead>
     
@@ -55,8 +57,23 @@
                                                 {{i.Id}}
                                             </td>
                                             <td>{{i.Name}}</td>
-                                           
-                                          
+
+
+
+                                            <td>
+                                                {%  if i.Status==0 %}
+                                                <a href="/activateshopstatus/{{i.Id}}" class="btn btn-primary">Aktiv et</a>
+                                               
+                                                {% endif %}
+                                                {%  if i.Status==1 %}
+                                                <label>Aktivdir</label>
+                                                <a href="/deactivateshopstatus/{{i.Id}}" class="btn btn-primary">Deaktiv et</a>
+                                                {% endif %}
+                                                {%  if i.Status==2 %}
+                                               
+                                                <a href="/activateshopstatus/{{i.Id}}" class="btn btn-primary">Aktiv et</a>
+                                                {% endif %}
+                                            </td>
                                             <td>
                                                 <a href="/shopdelete/{{i.Id}}" class="btn btn-primary">Sil</a>
                                             

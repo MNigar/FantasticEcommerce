@@ -45,14 +45,12 @@ def plist():
 #ShopList
 @app.route('/shoplist')
 def shoplist():
-    shoplist=Shop.query.filter_by(Status=0).all()
+    shoplist=Shop.query.all()
     return render_template('admin/shoplist.html',shoplist=shoplist)
 #ShopDelete
 @app.route('/shopdelete/<int:id>')
 def shopdelete(id):
-    shopdelete=Shop.query.filter_by(Id=id).first()
-    shopdelete.Status=1
-
+    shopdelete=Shop.query.filter_by(Id=id).delete()
     db.session.commit()    
     return redirect(url_for('shoplist'))
   
@@ -269,8 +267,28 @@ def catproduct(id):
   dbproductlist=Products.query.filter_by(CategoryId=id).all()
   return render_template('admin/catproduct.html',productlist=dbproductlist)
 
-
+#USerlist
 @app.route('/userlist')
 def userlist():
   userlist=User.query.filter_by(UserTypeId=4).all()
   return render_template('admin/userlist.html',userlist=userlist)
+
+#general orderlist for admin
+@app.route('/orderlist')
+def orderlist():
+  orderlist=Order.query.all()
+  return render_template('general/orderlist.html',orderlist=orderlist)
+#admin shopun statusunu aktiv edir
+@app.route('/activateshopstatus/<int:id>')
+def activateshopstatus(id):
+  shop=Shop.query.get(id)
+  shop.Status=1
+  db.session.commit()
+  return redirect(url_for('shoplist'))
+#admin shopun statusunu deaktive edir
+@app.route('/deactivateshopstatus/<int:id>')
+def deactivateshopstatus(id):
+  shop=Shop.query.get(id)
+  shop.Status=2
+  db.session.commit()
+  return redirect(url_for('shoplist'))
