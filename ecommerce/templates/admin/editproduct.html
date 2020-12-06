@@ -123,12 +123,12 @@
                         <li class="nav-item">
                             <a class="nav-link" href="javascript: void(0);"><span class="w-100">Mağazalar</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
                             <ul class="nav-second-level" aria-expanded="false">
-                                <li><a href="{{url_for('shoplist')}}">Mağazaların siyahısı</a></li>
+                                <li><a href="{{url_for('admin.shoplist')}}">Mağazaların siyahısı</a></li>
                                 <!-- <li><a href="../apps/email-read.html">Read Email</a></li>             -->
                             </ul>            
                         </li><!--end nav-item-->
-                        <li class="nav-item"><a class="nav-link" href="{{url_for('listp')}}">Məhsullar</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{url_for('userlist')}}">İstifadəçilər</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{url_for('admin.listp')}}">Məhsullar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{url_for('admin.userlist')}}">İstifadəçilər</a></li>
                         <!-- <li class="nav-item"><a class="nav-link" href="../apps/calendar.html">Calendar</a></li>
                         <li class="nav-item"><a class="nav-link" href="../apps/invoice.html">Invoice</a></li>                             -->
                     </ul>
@@ -408,7 +408,7 @@
                             
 
                               <div class="form-horizontal" id="center" style="margin-bottom:20%" >
-        <form id="Forms" action="{{url_for('editp', id = product.Id)}}" method="POST" enctype="multipart/form-data">
+        <form id="Forms" action="{{url_for('admin.editp', id = product.Id)}}" method="POST" enctype="multipart/form-data">
             
             <div class="form-group">
                 {% with messages = get_flashed_messages() %}

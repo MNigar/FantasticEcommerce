@@ -32,7 +32,7 @@
                                 <div class="card-body">
     
                                     
-                            <a href="{{url_for('addcat')}}" class="btn btn-primary" > Katerqoriya Əlavə Edin</a> 
+                            <a href="{{url_for('admin.addcat')}}" class="btn btn-primary" > Katerqoriya Əlavə Edin</a> 
                                     <p class="text-muted mb-4 font-13">
                                        
                                     </p>
@@ -54,14 +54,14 @@
                                         <tr>
                                             <td>{{i.Id}}</td>
                                             <td>{{i.ParentCategoryId}}</td>
-                                            <td> <a href="/catproduct/{{i.Id}}" >{{i.Name}}</a>
+                                            <td> <a href="{{url_for('admin.catproduct',id=i.Id)}}" >{{i.Name}}</a>
                                             </td>
                                             <td>
-                                                <a href="/delcat/{{i.Id}}" class="btn btn-primary">Sil</a>
+                                                <a href="{{url_for('admin.delcat',id=i.Id)}}" class="btn btn-primary">Sil</a>
                                             
                                         
-                                                <a href="/editcat/{{ i.Id }}" class="btn btn-primary">Dəyiş</a>
-                                           
+                                                <a href="{{url_for('admin.editcat',id=i.Id)}}" class="btn btn-primary">Dəyiş</a>
+                                    
                                            
                                             </td>
                                         </tr>

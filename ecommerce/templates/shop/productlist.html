@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    {% extends "admin/layout.html" %}
+    {% block body %}
+
+        <div class="page-wrapper">
+
+            <!-- Page Content-->
+            <div class="page-content-tab">
+
+                <div class="container-fluid">
+                    <!-- Page-Title -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="page-title-box">
+                                <div class="float-right">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Metrica</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:void(0);">Ecommerce</a></li>
+                                        <li class="breadcrumb-item active">List</li>
+                                    </ol>
+                                </div>
+                                <h4 class="page-title">Məhsulların siyahısı</h4>
+                            </div><!--end page-title-box-->
+                        </div><!--end col-->
+                    </div>
+                    <!-- end page title end breadcrumb -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                          
+                            <a href="{{url_for('shop.addpr')}}"  class="btn btn-primary" > Məhsul əlavə edin</a> 
+                            
+                                    <p class="text-muted mb-4 font-13">
+                                       
+                                    </p>
+    
+                                    <table id="datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                        <tr>
+                                            <tr>
+
+                                                <th>ID</th>
+                                                <th>Ad</th>
+                                                <th>Mağaza</th>
+                                                <th>Rənglər</th>
+                                                <th>Ölçülər</th>
+                                                <th>Say</th>
+                                                <th>Qiymət</th>
+                                                <th>Şəkil</th>
+                                                <th>Düzəliş</th>
+                                        
+                                        
+                                            </tr>
+                                        </tr>
+                                        </thead>
+    
+    
+                                        <tbody>
+                                           
+                                              {% for product in allpr %}
+                                        <tr>
+                                          <td>{{product.Id}}</td>
+                                         <td>{{product.Name}}</td>
+                                         <td>{{product.Shop.Name}}</td>
+                                         <td>
+                                            {% for element in product.pcolors %}
+                                                <p>{{element.Name}}</p>
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            {% for element in product.psizes %}
+                                                <p>{{element.Name}}</p>
+                                            {% endfor %}
+                                        </td>
+                                        <td>{{product.Count}}</td>
+                                        <td>{{product.Price}} AZN</td>
+                                        <td>
+                                            {% for image in product.images %}
+                                            
+                                            <img width="400px" style="margin: 10px;" src="{{url_for('static', filename ='upload/'+ image.MainImage)}}" alt="">
+                                  
+                                            {% endfor %}
+                                         </td>
+      
+                                         <td>
+       
+                                            <a href="{{url_for('admin.deletep',id=product.Id)}}" class="btn btn-primary">Sil</a>
+                                            
+                                            <a href="{{url_for('admin.editp',id= product.Id) }}" class="btn btn-primary">Dəyiş</a>
+                                            <a href="{{url_for('roots.prodetails', id=product.Id) }}" class="btn btn-primary">detal
+                                            </a>
+
+                                        </td>
+                                      </tr>
+
+                                      {% endfor %}
+      
+   
+                                        </tbody>
+                                    </table>        
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
+                    </div> <!-- end row -->
+
+                </div><!-- container -->
+      {% endblock %}
+
+
+</html>
+
+
+
+
+
+
+
+
+
+

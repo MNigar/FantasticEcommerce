@@ -41,6 +41,8 @@
         <th>Məhsul Adı</th>
         
         <th>Mağaza</th>
+        <th>Sifarişçinin adı</th>
+        <th>Sifarişçinin soyadı</th>
         <th>Qiymət</th>
         <th>Status</th>
         <th>Düzəliş etmək</th>
@@ -53,11 +55,14 @@
     <tr>
         <td>{{i.Id}}</td>
         <td>{{i.product.Name}}</td>
+      
         <td>{{i.shops.Name}}</td>
+        <td>{{i.Name}}</td>
+        <td>{{i.Surname}}</td>
         <td>{{i.Price}}</td>
         <td>Sifariş Verilib</td>
         <td>
-            <a href="/delorder/{{i.Id}}"><i class="far fa-trash-alt text-danger"></i></a>
+            <a href="{{url_for('admin.delorder'),id=i.Id}}"><i class="far fa-trash-alt text-danger"></i></a>
         </td>
     </tr>
     {% endfor %}

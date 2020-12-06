@@ -33,7 +33,7 @@
                                 
     
                                     <div class="form-horizontal" id="center" style="margin-bottom:20%" >
-        <form id="Forms" action="/editcat/{{currentcat.Id}}" method="POST" >
+        <form id="Forms" action="{{url_for('admin.editcat',id=currentcat.Id)}}" method="POST" >
             {% with messages = get_flashed_messages() %}
             {% if messages %}
               {% for message in messages %}

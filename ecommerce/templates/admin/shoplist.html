@@ -62,20 +62,20 @@
 
                                             <td>
                                                 {%  if i.Status==0 %}
-                                                <a href="/activateshopstatus/{{i.Id}}" class="btn btn-primary">Aktiv et</a>
+                                                <a href="/admin/activateshopstatus/{{i.Id}}" class="btn btn-primary">Aktiv et</a>
                                                
                                                 {% endif %}
                                                 {%  if i.Status==1 %}
                                                 <label>Aktivdir</label>
-                                                <a href="/deactivateshopstatus/{{i.Id}}" class="btn btn-primary">Deaktiv et</a>
+                                                <a href="/admin/deactivateshopstatus/{{i.Id}}" class="btn btn-primary">Deaktiv et</a>
                                                 {% endif %}
                                                 {%  if i.Status==2 %}
                                                
-                                                <a href="/activateshopstatus/{{i.Id}}" class="btn btn-primary">Aktiv et</a>
+                                                <a href="/admin/activateshopstatus/{{i.Id}}" class="btn btn-primary">Aktiv et</a>
                                                 {% endif %}
                                             </td>
                                             <td>
-                                                <a href="/shopdelete/{{i.Id}}" class="btn btn-primary">Sil</a>
+                                                <a href="/admin/shopdelete/{{i.Id}}" class="btn btn-primary">Sil</a>
                                             
                                         
                                            

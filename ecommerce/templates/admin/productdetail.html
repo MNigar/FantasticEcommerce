@@ -25,7 +25,7 @@
                         </div><!--end col-->
                     </div>
                     <!-- end page title end breadcrumb -->
-                    <form id="Forms" action="{{url_for('prodetails', id = product.Id)}}" method="POST" enctype="multipart/form-data">
+                    <form id="Forms" action="{{url_for('roots.prodetails', id = product.Id)}}" method="POST" enctype="multipart/form-data">
 
                     <div class="row">
                         <div class="col-12">
@@ -41,7 +41,6 @@
                                             {% endfor %}
                                        
                                         </div><!--end col-->
-                                        <form id="Forms" action="{{url_for('prodetails', id = product.Id)}}" method="POST" enctype="multipart/form-data">
 
                                         <div class="col-lg-6 align-self-center">
                                             <div class="single-pro-detail">
@@ -93,8 +92,8 @@
                                                
                                                 <div class="quantity mt-3 ">
 
-                                                <a href="/order/{{product.Id}}" class="btn btn-primary btn-sm text-white px-4 d-inline-block" onclick="GetSelectedValue()"><i class="mdi mdi-cart mr-2"></i>Sifariş edin </a>
-
+                                                <a href=" {{url_for('roots.order',productid=product.Id)}}" class="btn btn-primary btn-sm text-white px-4 d-inline-block" onclick="GetSelectedValue()"><i class="mdi mdi-cart mr-2"></i>Sifariş edin </a>
+                                                   
                                             </div>   
 
                                             </div>

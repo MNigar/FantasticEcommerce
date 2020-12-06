@@ -1,6 +1,6 @@
 from ecommerce import app,db
 from ecommerce.models import *
-from flask import Flask,render_template,url_for,request,redirect,make_response, session
+from flask import Flask,render_template,url_for,request,redirect,make_response, session,Blueprint
 from datetime import datetime
 
 from werkzeug.utils import secure_filename
@@ -8,6 +8,7 @@ import os
 import random
 import string
 from flask_mail import Mail, Message
+client=Blueprint("roots",__name__,template_folder='templates' ,static_folder='assets')
 
 mail= Mail(app)
 
@@ -19,7 +20,7 @@ app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 #ProductDetail
-@app.route('/prodetails/<int:id>', methods = ['GET','POST'])
+@client.route('/prodetails/<int:id>', methods = ['GET','POST'])
 def prodetails(id):
     products=Products.query.filter_by(Id=id).first()
     if request.method == 'POST':
@@ -39,16 +40,18 @@ def prodetails(id):
      return render_template('admin/productdetail.html',product=products)
 
 #Order
-@app.route('/order/<int:productid>', methods = ['GET','POST'])
+@client.route('/order/<int:productid>', methods = ['GET','POST'])
 def order(productid):
     product=Products.query.filter_by(Id=productid).first()
     
     if request.method == 'POST':
-      UserId=7
+      UserId=3
       ProductId=product.Id
       price=int(request.form['Price'])
       shopId=request.form['ShopId']
       SizeId=request.form['size']
+      Name=request.form['Name']
+      Surname=request.form['Surname']
       ColorId=request.form['color']
       count=request.form['count']
       Status=0
@@ -57,7 +60,7 @@ def order(productid):
       Address=request.form['Address']
       Phone=request.form['Phone']
       Email=request.form['Email']
-      order=Order(ProductId=ProductId,UserId=UserId,Count=count,Price=price,ShopId=shopId,SizeId=SizeId,ColorId=ColorId,Status=Status,CreateDate=CreateDate,Address=Address,Total=Total,Phone=Phone,Email=Email)
+      order=Order(ProductId=ProductId,UserId=UserId,Count=count,Price=price,ShopId=shopId,SizeId=SizeId,ColorId=ColorId,Status=Status,CreateDate=CreateDate,Address=Address,Total=Total,Phone=Phone,Email=Email,Name=Name,Surname=Surname)
       ordername=Products.query.filter_by(Id=order.ProductId).first()
       ordersize=Size.query.filter_by(Id=SizeId).first()
       ordercolor=Color.query.filter_by(Id=ColorId).first()
@@ -65,7 +68,7 @@ def order(productid):
       db.session.add(order)
       db.session.commit()
       msg = Message('Salam', sender = 'nigarmammadova4t@gmail.com', recipients = [order.Email])
-      msg.body = f'{order.Id} nömrəli sifarişiniz icra olundu. Sfiraişin detalı:{ordername.Name} Ölçü :{ordersize.Name} Rəng:{ordercolor.Name}   Qiymət:{order.Price}'   
+      msg.body = f'{order.Id} nömrəli sifarişiniz icra olundu. Sfiraişin detalı: Ad: {ordername.Name} Ölçü :{ordersize.Name} Rəng:{ordercolor.Name}   Qiymət:{order.Price}'   
       mail.send(msg)
       return "Success"
     if request.method == 'GET':

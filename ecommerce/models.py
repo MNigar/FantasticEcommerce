@@ -1,4 +1,10 @@
-from ecommerce import db
+
+from ecommerce import db,login_manager
+from flask_login import UserMixin
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 
 class Size(db.Model):
     __tablename__ = 'Size'
@@ -32,14 +38,15 @@ class UserType(db.Model):
     users=db.relationship('User',backref="UserType",lazy='select')
     def __repr__(self):
         return f"UserType('{self.Name}')"
-class User(db.Model):
+class User(db.Model,UserMixin):
     __tablename__ = 'User'
     Id=db.Column(db.Integer,primary_key=True)
+   
     Name=db.Column(db.String(50),nullable=False)
     Surname=db.Column(db.String(50),nullable=False)
     Phone=db.Column(db.String(50),nullable=False)
     Email=db.Column(db.String(50),nullable=False)
-    Password=db.Column(db.String(50),nullable=False)
+    Password=db.Column(db.String(100),nullable=False)
     UserTypeId=db.Column(db.Integer,db.ForeignKey('UserType.Id'),nullable=False)
     shop= db.relationship("Shop", backref="User",lazy='select',uselist=False)
     ratings=db.relationship('Rating',backref="User",lazy='select')
@@ -120,6 +127,8 @@ class Order(db.Model):
     CreateDate=db.Column(db.DateTime,nullable=False)       
     ShopId=db.Column(db.Integer,db.ForeignKey('Shop.Id'),nullable=False)
     Total=db.Column(db.Numeric, nullable=False)
+    Name=db.Column(db.String(30), nullable=False)
+    Surname=db.Column(db.String(30), nullable=False)
     Address=db.Column(db.String(600), nullable=False)
     Phone=db.Column(db.String(50), nullable=False)
     Email=db.Column(db.String(50), nullable=False)

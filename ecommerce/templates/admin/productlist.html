@@ -30,8 +30,9 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-    
-                            <a href="{{url_for('addpr')}}"  class="btn btn-primary" > Məhsul əlavə edin</a> 
+                          
+                            <a href="{{url_for('admin.addpr')}}"  class="btn btn-primary" > Məhsul əlavə edin</a> 
+
                                     <p class="text-muted mb-4 font-13">
                                        
                                     </p>
@@ -86,11 +87,10 @@
       
                                          <td>
        
-                                            <a href="/deletep/{{product.Id}}" class="btn btn-primary">Sil</a>
+                                            <a href="{{url_for('admin.deletep',id=product.Id)}}" class="btn btn-primary">Sil</a>
                                             
-                                        
-                                            <a href="/editp/{{ product.Id }}" class="btn btn-primary">Dəyiş</a>
-                                            <a href="/prodetails/{{ product.Id }}" class="btn btn-primary">detal
+                                            <a href="{{url_for('admin.editp',id= product.Id) }}" class="btn btn-primary">Dəyiş</a>
+                                            <a href="{{url_for('roots.prodetails', id=product.Id) }}" class="btn btn-primary">detal
                                             </a>
 
                                         </td>
