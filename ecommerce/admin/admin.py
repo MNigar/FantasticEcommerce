@@ -1,6 +1,6 @@
 from ecommerce import app,db
 from ecommerce.models import *
-from flask import Flask,render_template,url_for,request,redirect, Blueprint
+from flask import Flask,render_template,url_for,request,redirect, Blueprint,session
 from datetime import datetime
 
 from werkzeug.utils import secure_filename
@@ -9,9 +9,10 @@ import random
 import string
 
 
-admin=Blueprint("admin",__name__,template_folder='templates' ,static_folder='assets')
+admin=Blueprint("admin",__name__)
 
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg','JPEG', 'gif','webp'}
 
 def get_random_string(length):
     # Random string with the combination of lower and upper case
@@ -23,7 +24,8 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 @admin.route('/orderl/<int:id>')
 def orderl(id):
-    order=Order.query.filter_by(UserId=id).all()
+    userid=session["userid"]
+    order=Order.query.filter_by(UserId=userid).all()
     
     return render_template('admin/orderl.html',order=order)
 #orderdelete
@@ -113,12 +115,16 @@ def addpr():
     shops=Shop.query.all()
     catlist=Category.query.all()
     if request.method=='POST':   
-      categoryId=request.form['CategoryId']
+      categoryId=int(request.form['CategoryId'])
+      
+      
       name=request.form['Name']
       count=request.form['Count']
-      price=int(request.form['Price'])
-      shopId=request.form['ShopId']
-      product=Products(Name=name,Count=count,CategoryId=categoryId,Price=price,ShopId=shopId)
+      price=float(request.form['Price'])
+      shopId=int(request.form['ShopId'])
+      description=request.form['Description']
+      Status=0
+      product=Products(Name=name,Count=count,CategoryId=categoryId,Price=price,ShopId=shopId,Description=description,Status=Status)
       selectedproductobj=product
       selectedcolor = request.form.getlist('color[]')
       selectedsize= request.form.getlist('size[]')
@@ -139,7 +145,7 @@ def addpr():
           return redirect(url_for('admin.addpr'))
       if allowed_file(mainimage.filename):
     
-        mainfilename=secure_filename(mainimage.filename)
+        mainfilename=get_random_string(8)+secure_filename(mainimage.filename)
      
         for image in files:
           if allowed_file(image.filename):
@@ -200,19 +206,20 @@ def editp(id):
         
      
       selectedpr = Products.query.get(id)
-      selectedpr.cproduct = []
-      selectedpr.sproduct = []
-      for image in selectedpr.images:
-        image.Image=[]
-        image.MainImage=[]
-      categoryId=request.form['CategoryId']
+      product=selectedpr
+      # selectedpr.cproduct = []
+      # selectedpr.sproduct = []
+      # for image in selectedpr.images:
+      #   image.Image=[]
+      #   image.MainImage=[]
+      categoryId=int(request.form['CategoryId'])
       selectedpr.CategoryId=categoryId
       name=request.form['Name']
       selectedpr.Name=name
 
       count=request.form['Count']
       selectedpr.Count=count
-      shopId=request.form['ShopId']
+      shopId=int(request.form['ShopId'])
       selectedpr.ShopId=shopId
       price=int(request.form['Price'])
       selectedpr.Price=price
@@ -258,9 +265,10 @@ def editp(id):
         return "oneerror"
 
       db.session.commit()
+      return "nese"
   if request.method=='GET':
       return render_template('admin/editproduct.html',product=selectpr,categorylist=catlist,sizelist=sizes,colorlist=colors,shoplist=shops)
-
+  
 #ProductCatlist
 @admin.route('/catproduct/<int:id>', methods = ['GET'])
 def catproduct(id):
@@ -270,12 +278,13 @@ def catproduct(id):
 #USerlist
 @admin.route('/userlist')
 def userlist():
-  userlist=User.query.filter_by(UserTypeId=4).all()
+  userlist=User.query.filter_by(UserTypeId=3).all()
   return render_template('admin/userlist.html',userlist=userlist)
 
 #general orderlist for admin
 @admin.route('/orderlist')
 def orderlist():
+
   orderlist=Order.query.all()
   return render_template('general/orderlist.html',orderlist=orderlist)
 #admin shopun statusunu aktiv edir

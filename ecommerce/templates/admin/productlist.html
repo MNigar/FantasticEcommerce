@@ -42,15 +42,16 @@
                                         <tr>
                                             <tr>
 
-                                                <th>ID</th>
-                                                <th>Ad</th>
-                                                <th>Mağaza</th>
-                                                <th>Rənglər</th>
-                                                <th>Ölçülər</th>
-                                                <th>Say</th>
-                                                <th>Qiymət</th>
-                                                <th>Şəkil</th>
-                                                <th>Düzəliş</th>
+                                                <th scope="col">ID</th>
+                                                <th scope="col" >Ad</th>
+                                                <th scope="col">Mağaza</th>
+                                                <th scope="col">Rənglər</th>
+                                               
+                                                <th scope="col">Ölçülər</th>
+                                                <th scope="col">Say</th>
+                                                <th scope="col">Qiymət</th>
+                                                <th scope="col">Şəkil</th>
+                                                <th scope="col">Düzəliş</th>
                                         
                                         
                                             </tr>
@@ -60,37 +61,37 @@
     
                                         <tbody>
                                            
-                                              {% for product in allpr %}
+                                    {% for product in allpr %}
                                         <tr>
-                                          <td>{{product.Id}}</td>
-                                         <td>{{product.Name}}</td>
-                                         <td>{{product.Shop.Name}}</td>
-                                         <td>
+                                          <td >{{product.Id}}</td>
+                                         <td >{{product.Name}}</td>
+                                         <td > {{product.Shop.Name}}</td>
+                                         <td >
                                             {% for element in product.pcolors %}
                                                 <p>{{element.Name}}</p>
                                             {% endfor %}
                                         </td>
-                                        <td>
+                                        <td >
                                             {% for element in product.psizes %}
                                                 <p>{{element.Name}}</p>
                                             {% endfor %}
                                         </td>
-                                        <td>{{product.Count}}</td>
-                                        <td>{{product.Price}} AZN</td>
-                                        <td>
+                                        <td >{{product.Count}}</td>
+                                        <td >{{product.Price}} AZN</td>
+                                        <td >
                                             {% for image in product.images %}
                                             
-                                            <img width="400px" style="margin: 10px;" src="{{url_for('static', filename ='upload/'+ image.MainImage)}}" alt="">
+                                            <img  style="margin: 10px;" src="{{url_for('static', filename ='upload/'+ image.Image)}}"  width="100px" height="100px" alt="">
                                   
                                             {% endfor %}
                                          </td>
       
-                                         <td>
+                                         <td >
        
-                                            <a href="{{url_for('admin.deletep',id=product.Id)}}" class="btn btn-primary">Sil</a>
+                                            <a href="{{url_for('admin.deletep',id=product.Id)}}"  >Sil</a>
                                             
-                                            <a href="{{url_for('admin.editp',id= product.Id) }}" class="btn btn-primary">Dəyiş</a>
-                                            <a href="{{url_for('roots.prodetails', id=product.Id) }}" class="btn btn-primary">detal
+                                            <a href="{{url_for('admin.editp',id= product.Id) }}" >Dəyiş</a>
+                                            <a href="{{url_for('roots.prodetails', id=product.Id) }}" >detal
                                             </a>
 
                                         </td>

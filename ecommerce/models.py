@@ -5,6 +5,7 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+    
 
 class Size(db.Model):
     __tablename__ = 'Size'
@@ -23,14 +24,7 @@ class Color(db.Model):
     def __repr__(self):
         return f"Color('{self.Name}')"
 
-class Category(db.Model):
-    __tablename__='Category'
-    Id=db.Column(db.Integer,primary_key=True)
-    ParentCategoryId=db.Column(db.Integer,nullable=True)
-    Name=db.Column(db.String(50),nullable=False)  
-    product= db.relationship("Products", backref="Category",lazy='select',uselist=False)
-    def __repr__(self):
-        return f"Category('{self.ParentCategoryId}','{self.Name}')"
+
 class UserType(db.Model):
     __tablename__ = 'UserType'
     Id=db.Column(db.Integer,primary_key=True)
@@ -80,6 +74,16 @@ psizes=db.Table('size-product',
   db.Column('product_id',db.Integer,db.ForeignKey('Products.Id')),
   db.Column('size_id',db.Integer,db.ForeignKey('Size.Id')))
 
+class Category(db.Model):
+    __tablename__ = 'Category'
+    Id=db.Column(db.Integer,primary_key=True)
+    ParentCategoryId = db.Column(db.Integer, nullable=True)
+    Name=db.Column(db.String(50), nullable=False)  
+    product= db.relationship("Products", backref="Category",lazy='select',uselist=False)
+    
+    def __repr__(self):
+        return f"Category('{self.ParentCategoryId}','{self.Name}')"
+
 class Products(db.Model):
     __tablename__='Products'
     Id=db.Column(db.Integer,primary_key=True)
@@ -88,22 +92,22 @@ class Products(db.Model):
     CategoryId=db.Column(db.Integer,db.ForeignKey('Category.Id'),nullable=False)
     Price=db.Column(db.Numeric,nullable=False)   
     ShopId=db.Column(db.Integer,db.ForeignKey('Shop.Id'),nullable=False)
+    Description=db.Column(db.String(600),nullable=False)
+    Status=db.Column(db.Integer,nullable=False)
     images=db.relationship("ProductImage", backref="iproduct",lazy='select')
     pcolors=db.relationship("Color",secondary=pcolors, backref="cproduct",lazy='select')
     psizes=db.relationship("Size",secondary=psizes, backref="sproduct",lazy='select')    
     ratings=db.relationship('Rating',backref="Products",lazy='select')
     
     def __repr__(self):
-        return f"Products('{self.Name}','{self.Count}','{self.CategoryId}','{self.Price}','{self.ShopId}')"
+        return f"Products('{self.Name}','{self.Count}','{self.CategoryId}','{self.Price}','{self.ShopId}','{self.Status}','{self.Description}')"
 
 class ProductImage(db.Model):
     __tablename__='ProductImage'
     Id=db.Column(db.Integer,primary_key=True)
     ProductId=db.Column(db.Integer,db.ForeignKey('Products.Id'),nullable=False)
-    Image=db.Column(db.String(500),nullable=False)
-    MainImage=db.Column(db.String(500),nullable=False)
-    
-   
+    Image=db.Column(db.String(1000),nullable=False)
+    MainImage=db.Column(db.String(1000),nullable=False)
     def __repr__(self):
         return f"ProductImage('{self.ProductId}','{self.Image}','{self.MainImageId}')"
 class Rating(db.Model):
@@ -117,7 +121,7 @@ class Order(db.Model):
     
     __tablename__='Order'
     Id=db.Column(db.Integer,primary_key=True)
-    UserId=db.Column(db.Integer,db.ForeignKey('User.Id'),nullable=False)
+    UserId=db.Column(db.Integer,db.ForeignKey('User.Id'),nullable=True)
     ProductId=db.Column(db.Integer,db.ForeignKey('Products.Id'),nullable=False)
     Count=db.Column(db.Integer, nullable=False)
     Price=db.Column(db.Numeric, nullable=False)
@@ -133,6 +137,7 @@ class Order(db.Model):
     Phone=db.Column(db.String(50), nullable=False)
     Email=db.Column(db.String(50), nullable=False)
 
+
     users=db.relationship('User',backref="Order",lazy='select')
     product=db.relationship("Products", backref="Order",lazy='select')
     colors=db.relationship("Color", backref="Order",lazy='select')
@@ -141,3 +146,12 @@ class Order(db.Model):
     
     def __repr__(self):
         return f"Order('{self.UserId}','{self.ProductId}','{self.Count}','{self.Status}','{self.SizeId}','{self.ColorId}','{self.CreateDate}','{self.Amount}','{self.ShopId}','{self.Total}')"
+
+class Slider(db.Model):
+    __tablename__='Slider'
+    Id=db.Column(db.Integer,primary_key=True)
+    Text=db.Column(db.String(100),nullable=True)   
+    Image=db.Column(db.String(1000),nullable=False)
+    URL=db.Column(db.String(1000),nullable=True)  
+    def __repr__(self):
+        return f"Slider('{self.Text}','{self.Image}','{self.URL}')"

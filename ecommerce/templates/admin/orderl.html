@@ -62,7 +62,8 @@
         <td>{{i.Price}}</td>
         <td>Sifariş Verilib</td>
         <td>
-            <a href="{{url_for('admin.delorder'),id=i.Id}}"><i class="far fa-trash-alt text-danger"></i></a>
+            
+            <a href="/admin/delorder/{{i.Id}}"><i class="far fa-trash-alt text-danger"></i></a>
         </td>
     </tr>
     {% endfor %}
@@ -74,6 +75,7 @@
 </div> <!-- end row -->
 
 </div><!-- container -->
+</div></div>
 {% endblock %}
 
 

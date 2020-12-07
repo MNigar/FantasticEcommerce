@@ -1,0 +1,98 @@
+{% extends "client/layout.html" %}
+{% block body %}
+        <main class="main">
+            
+
+            <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url('assets/images/backgrounds/login-bg.jpg')">
+            	<div class="container">
+            		<div class="form-box">
+            			<div class="form-tab">
+	            			<ul class="nav nav-pills nav-fill" role="tablist">
+							    <li class="nav-item">
+							        <a class="nav-link active" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="true">Qeydiyyatdan Keç</a>
+							    </li>
+							   
+							</ul>
+							<div class="tab-content">
+							    <div class="tab-pane fade" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
+							    	
+							    	
+							    </div><!-- .End .tab-pane -->
+							    <div class="tab-pane fade show active" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
+							    	<form id="Forms"  action="creg" method="post" >
+                                        {% with messages = get_flashed_messages() %}
+                                        {% if messages %}
+                                          {% for message in messages %}
+                                            <h3>{{ message }}</h3>
+                                          {% endfor %}
+                                        {% endif %}
+                                      {% endwith %}
+                                      <div class="form-group">
+
+                                        <div class="col-md-10">
+                                            <label for="name">Ad</label>
+                        
+                                            <input id="Name" name="Name" type="text" class="form-control" />
+                        
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                        
+                                        <div class="col-md-10">
+                                            <label for="Surname">Soyad</label>
+                        
+                                            <input id="Surname" name="Surname" type="text" class="form-control"   />
+                        
+                                        </div>
+                                    </div><div class="form-group">
+                        
+                                        <div class="col-md-10">
+                                            <label for="phone">Telefon</label>
+                        
+                                            <input id="phone" name="Phone" type="text" class="form-control"   />
+                        
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                        
+                                        <div class="col-md-10">
+                                            <label for="email">Elektron ünvan</label>
+                        
+                                            <input id="Email" name="Email" type="text" class="form-control"   />
+                        
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                        
+                                        <div class="col-md-10">
+                                            <label for="password">Şifrə</label>
+                        
+                                            <input id="password" name="Password" type="password" class="form-control"   />
+                        
+                                        </div>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="signin-remember-2">
+                                        <label class="custom-control-label" for="signin-remember-2">Razıyam</label>
+                                    </div><!-- End .custom-checkbox -->
+							    		<div class="form-footer">
+                                            <div>
+                                                <input type="submit" value="Qeydiyyatdan keç" class="btn btn-outline-primary-2" />
+        
+                                            </div>
+                                               
+
+			                			
+
+			                				
+
+							    	</form>
+                                  
+							    </div><!-- .End .tab-pane -->
+							</div><!-- End .tab-content -->
+						</div><!-- End .form-tab -->
+            		</div><!-- End .form-box -->
+            	</div><!-- End .container -->
+            </div><!-- End .login-page section-bg -->
+        </main><!-- End .main -->
+{% endblock %}

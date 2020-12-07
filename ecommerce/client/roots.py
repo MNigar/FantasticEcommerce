@@ -2,13 +2,14 @@ from ecommerce import app,db
 from ecommerce.models import *
 from flask import Flask,render_template,url_for,request,redirect,make_response, session,Blueprint
 from datetime import datetime
+from sqlalchemy import func,distinct,select
 
 from werkzeug.utils import secure_filename
 import os
 import random
 import string
 from flask_mail import Mail, Message
-client=Blueprint("roots",__name__,template_folder='templates' ,static_folder='assets')
+client=Blueprint("roots",__name__)
 
 mail= Mail(app)
 
@@ -34,18 +35,33 @@ def prodetails(id):
       productorder=Products(Name=name,Count=count,CategoryId=categoryId,Price=price,ShopId=shopId)
 
       # return render_template('admin/order.html',order=productorder,SizeId=SizeId,ColorId=ColorId,ProductId=products.Id)
-      return render_template('admin/order.html',order=productorder,SizeId=SizeId,ColorId=ColorId,ProductId=products.Id)
+      return render_template('order.html',order=productorder,SizeId=SizeId,ColorId=ColorId,ProductId=products.Id)
 
     else:
-     return render_template('admin/productdetail.html',product=products)
+     return render_template('client/productdetail.html',product=products)
+#ProductList
+@client.route('/listp')
+def listp():
+    products = Products.query.all()
+    category=Category.query.all()
+    shop=Shop.query.all() 
+    size=Size.query.all()    
+    color=Color.query.all()
+    im=ProductImage.query.with_entities(ProductImage.MainImage).distinct()
 
+          
+    return render_template("client/productlist.html",color=color,im=im,size=size, allpr = products,category=category,shop=shop)
 #Order
 @client.route('/order/<int:productid>', methods = ['GET','POST'])
 def order(productid):
     product=Products.query.filter_by(Id=productid).first()
     
     if request.method == 'POST':
-      UserId=3
+      userid=session["userid"]
+      if userid=='':
+         UserId=1
+      else :
+        UserId=userid
       ProductId=product.Id
       price=int(request.form['Price'])
       shopId=request.form['ShopId']
@@ -72,6 +88,5 @@ def order(productid):
       mail.send(msg)
       return "Success"
     if request.method == 'GET':
-      return render_template('admin/order.html',product=product)
+      return render_template('client/checkout.html',product=product)
 
-  

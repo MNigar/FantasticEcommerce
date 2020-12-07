@@ -38,7 +38,9 @@ def addpr():
       count=request.form['Count']
       price=int(request.form['Price'])
       shopId=shop.Id
-      product=Products(Name=name,Count=count,CategoryId=categoryId,Price=price,ShopId=shopId)
+      Status=0
+      Description="nnn"
+      product=Products(Name=name,Count=count,CategoryId=categoryId,Price=price,ShopId=shopId,Description=Description,Status=Status)
       selectedproductobj=product
       selectedcolor = request.form.getlist('color[]')
       selectedsize= request.form.getlist('size[]')
@@ -59,7 +61,7 @@ def addpr():
           return redirect(url_for('admin.addpr'))
       if allowed_file(mainimage.filename):
     
-        mainfilename=secure_filename(mainimage.filename)
+        mainfilename=get_random_string(8)+secure_filename(mainimage.filename)
      
         for image in files:
           if allowed_file(image.filename):
@@ -102,3 +104,22 @@ def do(id):
   order.Status=1
   db.session.commit()
   return redirect(url_for('shop.orderl'))
+#Prod
+# uctdelete
+@shop.route('/deletep/<int:id>', methods = ['GET'])
+def deletep(id):
+    selectedpr = Products.query.get(id)
+    selectedpr.cproduct = []
+    selectedpr.sproduct = []
+    for image in selectedpr.images:
+        image.Image=[]
+        image.MainImage=[]
+        db.session.delete(image)
+        # os.remove(os.path.join('static', image.Image))
+        # os.remove(os.path.join('static', image.MainImage))
+
+    selectedpr.iproduct = []
+    db.session.commit()
+    db.session.delete(selectedpr)
+    db.session.commit()
+    return redirect(url_for('shop.listp'))

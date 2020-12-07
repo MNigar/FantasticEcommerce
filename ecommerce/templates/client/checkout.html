@@ -1,0 +1,177 @@
+{% extends "client/layout.html" %}
+{% block body %}
+
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Ödəniş<span></span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Məhsul</a></li>
+                <li class="breadcrumb-item"><a href="#">Ödəniş</a></li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="checkout">
+            <div class="container">
+                
+                <form id="Forms" action="{{url_for('roots.order', productid = product.Id)}}" method="POST" >
+
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <h2 class="checkout-title">Ödəniş detalları</h2><!-- End .checkout-title -->
+                                <div class="row">
+                                    <input id="ProductId" name="ProductId" value="{{product.Id}}" type="hidden" class="form-control" />
+                                    <input type="hidden" id="F" name="size" >
+                                    <input type="hidden" id="color" name="color" >
+                                    <input type="hidden" id="count" name="count" >
+                                                    <input id="ShopId" name="ShopId" type="hidden" class="form-control" value="{{product.ShopId}}" />
+
+                                    <div class="col-md-12">
+               
+                                        <label>Məhsulun adı</label>
+                        
+                                        <input id="Name" name="Name" value="{{product.Name}}" type="text" class="form-control" />
+                                        </div>
+                                    <div class="col-sm-6">
+                                        
+                                            <label>Ad*</label>
+                                        <input id="Name" name="Name" type="text" class="form-control"  required />
+                                    </div><!-- End .col-sm-6 -->
+
+                                    <div class="col-sm-6">
+                                        <label>Soyad*</label>
+                                        <input id="Surname" name="Surname" type="text" class="form-control"  required />
+                                    </div><!-- End .col-sm-6 -->
+                                </div><!-- End .row -->
+                               
+                                <label>Adres*</label>
+                           <textarea id="Address" name="Address" type="text" class="form-control"  placeholder="House number and Street name" required />
+                            </textarea>
+
+                               
+
+                               
+
+                             
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                      
+                                            <label>Elektron Ünvan*</label>
+                                        <input id="Email" name="Email" type="text" class="form-control" required />
+                              
+                                       
+                                      
+                                    </div><!-- End .col-sm-6 -->
+
+                                    <div class="col-sm-6">
+                                        <label>Əlaqə Nömrəsi</label>
+
+                                        <input id="Phone" name="Phone" type="text" class="form-control" required />
+                                    </div><!-- End .col-sm-6 -->
+                                </div><!-- End .row -->
+
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="register-policy" required>
+                                    <label class="custom-control-label" for="register-policy"> <a href="#">Satış sözləşməsi ilə razıyam</a> *</label>
+                                </div><!-- End .custom-checkbox -->
+
+                                
+
+                              
+                        </div><!-- End .col-lg-9 -->
+                        <aside class="col-lg-3">
+                            <div class="summary">
+                                <h3 class="summary-title">Sifarişiniz</h3><!-- End .summary-title -->
+
+                                <table class="table table-summary">
+                                    <thead>
+                                        <tr>
+                                            <th>Məhsul</th>
+                                            <th>Qiymət</th>
+                                           
+                
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="#">{{product.Name}}</a></td>
+                                            
+                                            
+                                            
+                                            <td><input id="Price" name="Price" type="text" class="form-control" value="{{product.Price}}" /> </td>
+                                        </tr>
+
+                                       
+                                       
+                                        <tr>
+                                            <td>Çatdırılma:</td>
+                                            <td>Pulsuz</td>
+                                        </tr>
+                                        <tr class="summary-total">
+                                            <td>Cəm:</td>
+                                            <td>{{product.Price}} AZN</td>
+                                        </tr><!-- End .summary-total -->
+                                    </tbody>
+                                </table><!-- End .table table-summary -->
+<label> Qapıda ödəmə</label>
+                               
+                                <button type="submit" onclick="run()" class="btn btn-outline-primary-2 btn-order btn-block">
+                                    <span class="btn-text">Sifarişi tamamla</span>
+                                    
+                                </button>
+                            </div><!-- End .summary -->
+                        </aside><!-- End .col-lg-3 -->
+                    </div><!-- End .row -->
+                </form>
+            </div><!-- End .container -->
+        </div><!-- End .checkout -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+
+<script>
+    var inputF = document.getElementById("F"); 
+    var color=document.getElementById("color")
+    var count=document.getElementById("count")
+
+function run(){
+  
+    inputF.value=sessionStorage.getItem("sizes")
+    color.value=sessionStorage.getItem("colors")
+    count.value=sessionStorage.getItem("Count")
+
+
+}
+function get(){
+        var dropselvalue = parseInt(sessionStorage.getItem("sizes"));
+        var dropselvalue = parseInt(sessionStorage.getItem("colors"));
+
+        var dropselvalue = parseInt(sessionStorage.getItem("Count"));
+        var inputF = document.getElementById("F"); 
+        inputF.value=sessionStorage.getItem("sizes")
+
+       
+    };
+  $(window).on("load", function() { 
+    var dropselvalue = parseInt(sessionStorage.getItem("sizes"));
+    var inputF = document.getElementById("F"); 
+        inputF.value=dropselvalue
+});
+</script>
+
+
+
+
+
+
+
+
+{%endblock%}

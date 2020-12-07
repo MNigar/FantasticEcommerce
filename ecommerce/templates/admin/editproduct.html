@@ -456,9 +456,9 @@
                         
                         {% for each in categorylist %}
                         {% if each.Id == product.Category.Id %}
-                        <option selected>{{each.Name}}</option>
+                        <option selected value="{{each.Id}}" >{{each.Name}}</option>
                         {% else %}
-                        <option>{{each.Name}}</option>
+                        <option value="{{each.Id}}">{{each.Name}}</option>
                         {% endif %}
 
 
@@ -476,9 +476,9 @@
 
                     {% for each in shoplist %}
                         {% if each.Id == product.Shop.Id %}
-                        <option selected>{{each.Name}}</option>
+                        <option selected  value="{{each.Id}}">{{each.Name}}</option>
                         {% else %}
-                        <option>{{each.Name}}</option>
+                        <option  value="{{each.Id}}">{{each.Name}}</option>
                         {% endif %}
 
 

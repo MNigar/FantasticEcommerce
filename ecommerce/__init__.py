@@ -1,6 +1,5 @@
 import pymysql
 from flask import Flask,Blueprint
-
 from flask_sqlalchemy import SQLAlchemy
 # from sqlalchemy import *
 # from sqlalchemy import event

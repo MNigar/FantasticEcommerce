@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    {% extends "admin/layout.html" %}
+    {% extends "shop/Layout.html" %}
     {% block body %}
 
         <div class="page-wrapper">
@@ -59,45 +59,47 @@
     
     
                                         <tbody>
-                                           
-                                              {% for product in allpr %}
-                                        <tr>
-                                          <td>{{product.Id}}</td>
-                                         <td>{{product.Name}}</td>
-                                         <td>{{product.Shop.Name}}</td>
-                                         <td>
-                                            {% for element in product.pcolors %}
-                                                <p>{{element.Name}}</p>
-                                            {% endfor %}
-                                        </td>
-                                        <td>
-                                            {% for element in product.psizes %}
-                                                <p>{{element.Name}}</p>
-                                            {% endfor %}
-                                        </td>
-                                        <td>{{product.Count}}</td>
-                                        <td>{{product.Price}} AZN</td>
-                                        <td>
-                                            {% for image in product.images %}
-                                            
-                                            <img width="400px" style="margin: 10px;" src="{{url_for('static', filename ='upload/'+ image.MainImage)}}" alt="">
-                                  
-                                            {% endfor %}
-                                         </td>
-      
-                                         <td>
+                                            {% for product in allpr %}
+                                            <tr>
+                                              <td >{{product.Id}}</td>
+                                             <td >{{product.Name}}</td>
+                                             <td > {{product.Shop.Name}}</td>
+                                             <td >
+                                                {% for element in product.pcolors %}
+                                                    <p>{{element.Name}}</p>
+                                                {% endfor %}
+                                            </td>
+                                            <td >
+                                                {% for element in product.psizes %}
+                                                    <p>{{element.Name}}</p>
+                                                {% endfor %}
+                                            </td>
+                                            <td >{{product.Count}}</td>
+                                            <td >{{product.Price}} AZN</td>
+                                            <td >
+                                                {% for image in product.images %}
+                                                
+                                                <img  style="margin: 10px;" src="{{url_for('static', filename ='upload/'+ image.Image)}}"  width="100px" height="100px" alt="">
+                                      
+                                                {% endfor %}
+                                             </td>
+          
+                                             <td >
+           
+                                                <a href="{{url_for('shop.deletep',id=product.Id)}}"  >Sil</a>
+                                                
+                                                <a href="{{url_for('admin.editp',id= product.Id) }}" >Dəyiş</a>
+                                                <a href="{{url_for('roots.prodetails', id=product.Id) }}" >detal
+                                                </a>
+    
+                                            </td>
+                                          </tr>
+    
+                                          {% endfor %}
+          
        
-                                            <a href="{{url_for('admin.deletep',id=product.Id)}}" class="btn btn-primary">Sil</a>
-                                            
-                                            <a href="{{url_for('admin.editp',id= product.Id) }}" class="btn btn-primary">Dəyiş</a>
-                                            <a href="{{url_for('roots.prodetails', id=product.Id) }}" class="btn btn-primary">detal
-                                            </a>
 
-                                        </td>
-                                      </tr>
-
-                                      {% endfor %}
-      
+                                   
    
                                         </tbody>
                                     </table>        
