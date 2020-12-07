@@ -24,8 +24,8 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 @admin.route('/orderl/<int:id>')
 def orderl(id):
-    userid=session["userid"]
-    order=Order.query.filter_by(UserId=userid).all()
+    userId=session["userid"]
+    order=Order.query.filter_by(UserId=userId).all()
     
     return render_template('admin/orderl.html',order=order)
 #orderdelete
@@ -52,7 +52,7 @@ def shoplist():
 #ShopDelete
 @admin.route('/shopdelete/<int:id>')
 def shopdelete(id):
-    shopdelete=Shop.query.filter_by(Id=id).delete()
+    shopDelete=Shop.query.filter_by(Id=id).delete()
     db.session.commit()    
     return redirect(url_for('admin.shoplist'))
   
@@ -69,7 +69,7 @@ def categorylist():
 #CategoryAdd
 @admin.route('/addcat',methods=['GET','POST'])    
 def addcat():
-    catlist = Category.query.filter_by(ParentCategoryId=0).all()
+    catList = Category.query.filter_by(ParentCategoryId=0).all()
     
     if request.method=='POST':
      newcat = Category.query.filter_by(Name=request.form['Name'] ).first()
@@ -82,9 +82,9 @@ def addcat():
       return redirect(url_for('admin.categorylist'))
      else:
       flash('Kateqoriya movcuddur')
-      return render_template('admin/addcategory.html',categorylist=catlist)
+      return render_template('admin/addcategory.html',categoryList=catList)
     if request.method=='GET':
-      return render_template('admin/addcategory.html',categorylist=catlist)
+      return render_template('admin/addcategory.html',categoryList=catList)
 #CategoryDelete
 @admin.route('/delcat/<id>')    
 def delcat(id):
