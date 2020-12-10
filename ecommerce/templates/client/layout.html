@@ -15,6 +15,9 @@
         .error {
         border-color: red !important;
     }
+    .footer {
+    background-color: #333;
+}
     </style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -74,10 +77,13 @@
                                     <li><a href="tel:#"><i class="icon-phone"></i>Əlaqə: +00000000</a></li>
                                     <li><a href="wishlist.html"><i class="icon-heart-o"></i>Bəyəndiklərim <span>(3)</span></a></li>
                                     <li><a href="about.html">Haqqımızda</a></li>
-                                    
+                                    {% if sessions()== 0 %}
+
                                     <li><a href="{{url_for('auth.login')}}" ><i class="icon-user"></i>Daxil ol</a></li>
+                                    {% else %}
                                     <li><a href="{{url_for('auth.logout')}}" ><i class="icon-user"></i>Çıxış</a></li>
 
+                                    {% endif %}
                                 </ul>
                             </li>
                         </ul><!-- End .top-menu -->
@@ -93,11 +99,11 @@
                             <i class="icon-bars"></i>
                         </button>
 
-                        <a href="index.html" class="logo">
-                            <img src="                        {{  url_for('static',filename='template/assets/images/efddb4fb-3e92-49d1-bd14-56fab2260ba9_200x200.png')  }}
-                            " alt="Molla Logo" width="105" height="25" style="margin: 0px;">
+                        <a href="http://127.0.0.1:5000/" class="logo">
+                            <img src="{{url_for('static',filename='template/assets/images/about/E40C856C-5396-4A80-A0B4-FD3547A4177F.jpeg')  }}
+                            " alt="Molla Logo"  style="margin: 0px; width:70; height:50px;">
                         </a>
-                        
+                      
                         <nav class="main-nav">
                             <ul class="menu sf-arrows">
                                 <li class="megamenu-container active">
@@ -117,7 +123,7 @@
                                                             <div class="menu-title">Məsullar</div><!-- End .menu-title -->
                                                             <ul>
                                                             
-                                                                <li><a href="category-4cols.html">Bütün Məsullar</a></li>
+                                                                <li><a href="{{url_for('roots.listp')}}">Bütün Məsullar</a></li>
                                                             </ul>
 
 
@@ -146,12 +152,12 @@
                                                                 {% for i in femalecat() %}
                                                                 <li>
                                                                     
-                                                                    
-                                                                    <a href="category-fullwidth.html">
-                                                                   
+                                                                    <a href="{{url_for('roots.catproduct',id=i.Id)}}">
+                                                                  
                                                                    {{i.Name}}
                                                                     
                                                                     </a></li>
+
                                                                     {% endfor %}
                                                             </ul>
                                                         </div><!-- End .col-md-6 -->
@@ -165,8 +171,8 @@
                                                                 <li>
                                                                     
                                                                     
-                                                                    <a href="category-fullwidth.html">
-                                                                   
+                                                                    <a href="{{url_for('roots.catproduct',id=i.Id)}}">
+                                                                    
                                                                    {{i.Name}}
                                                                     
                                                                     </a></li>
@@ -183,7 +189,7 @@
                                     </div><!-- End .megamenu megamenu-md -->
                                 </li>
                                 <li>
-                                    <a href="about-2.html" >Haqqımızda</a>
+                                    <a href="{{url_for('roots.about')}}" >Haqqımızda</a>
                                     
                                 </li>
                                 <li><a href="contact.html">Əlaqə</a></li>
@@ -295,7 +301,7 @@
         {% block body %}
         {% endblock %}
 
-        <footer class="footer footer-2">
+        <footer  class="footer footer-2" style="background-color: #333;">
             <div class="footer-middle">
                 <div class="container-fluid">
                     <div class="row">
@@ -625,5 +631,4 @@
  
    
 </body>
-
 </html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    {% extends "shop/Layout.html" %}
+    {% extends "admin/layout.html" %}
     {% block body %}
 
         <div class="page-wrapper">
@@ -20,7 +20,7 @@
                                         <li class="breadcrumb-item active">List</li>
                                     </ol>
                                 </div>
-                                <h4 class="page-title">Məhsulların siyahısı</h4>
+                                <h4 class="page-title">Sifarişlərin siyahısı</h4>
                             </div><!--end page-title-box-->
                         </div><!--end col-->
                     </div>
@@ -39,9 +39,10 @@
     <tr>
         <th>Sifariş Nömrəsi</th>
         <th>Məhsul Adı</th>
-        <th>Sifarişçinin adı və Soyadı</th>
-
         
+        <th>Mağaza</th>
+        <th>Sifarişçinin adı</th>
+        <th>Sifarişçinin soyadı</th>
         <th>Qiymət</th>
         <th>Status</th>
         <th>Düzəliş etmək</th>
@@ -50,31 +51,19 @@
 
 
     <tbody>
-        {% for i in orderlist%}
+        {% for i in order%}
     <tr>
         <td>{{i.Id}}</td>
         <td>{{i.product.Name}}</td>
-      <td>
-
-        {{i.Name}} 
-        {{i.Surname}}
-      </td>
-        <td>{{i.Price}}</td>
-        <td>
-        {%  if i.Status==0 %}
-        <a href="/shop/do/{{i.Id}}" class="btn btn-primary">İcra et</a>
-       
-        {% endif %}
-        {%  if i.Status==1 %}
-        <label>Icra edildi</label>
-       
-        {% endif %}
-    </td>
-    
       
-
+        <td>{{i.shops.Name}}</td>
+        <td>{{i.Name}}</td>
+        <td>{{i.Surname}}</td>
+        <td>{{i.Price}}</td>
+        <td>Sifariş Verilib</td>
         <td>
-            <a href="/admin/delorder/{{i.Id}}"><i class="far fa-trash-alt text-danger"></i></a>
+            
+            <a href="/admin/generalorderdelete/{{i.Id}}"><i class="far fa-trash-alt text-danger"></i></a>
         </td>
     </tr>
     {% endfor %}
@@ -86,6 +75,7 @@
 </div> <!-- end row -->
 
 </div><!-- container -->
+</div></div>
 {% endblock %}
 
 

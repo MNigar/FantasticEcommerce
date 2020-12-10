@@ -25,7 +25,7 @@ def allowed_file(filename):
 @admin.route('/orderl/<int:id>')
 def orderl(id):
     userId=session["userid"]
-    order=Order.query.filter_by(UserId=userId).all()
+    order=Order.query.filter_by(UserId=id).all()
     
     return render_template('admin/orderl.html',order=order)
 #orderdelete
@@ -33,17 +33,17 @@ def orderl(id):
 def delorder(id):
     order=Order.query.filter_by(Id=id).delete()
     db.session.commit()
-    return redirect(url_for('admin.listp'))
+    if session['UserTypeId']==2:
+     return redirect(url_for('shop.orderl'))
+    if session['UserTypeId']==1:
+     return redirect(url_for('admin.userlist'))
 
 
 @admin.route('/admin')
 def adminindex():
      return render_template('admin/index.html')
 
-@admin.route('/plist')
-def plist():
-     
-      return render_template('admin/ecommerce-product-list.html')
+
 #ShopList
 @admin.route('/shoplist')
 def shoplist():
@@ -172,25 +172,25 @@ def addpr():
 #ProductList
 @admin.route('/listp')
 def listp():
-    products = Products.query.all()
+    products = Products.query.filter_by(Status=0).all()
     return render_template("admin/productlist.html", allpr = products)
 #Productdelete
 @admin.route('/deletep/<int:id>', methods = ['GET'])
 def deletep(id):
     selectedpr = Products.query.get(id)
-    selectedpr.cproduct = []
-    selectedpr.sproduct = []
+    selectedpr.cproduct = [1]
+    selectedpr.sproduct = [1]
     for image in selectedpr.images:
         image.Image=[]
         image.MainImage=[]
         db.session.delete(image)
         # os.remove(os.path.join('static', image.Image))
         # os.remove(os.path.join('static', image.MainImage))
-
+    selectedpr.Status=1
     selectedpr.iproduct = []
     db.session.commit()
-    db.session.delete(selectedpr)
-    db.session.commit()
+    
+    
     return redirect(url_for('admin.listp'))
     #Productdelete
 
@@ -278,7 +278,7 @@ def catproduct(id):
 #USerlist
 @admin.route('/userlist')
 def userlist():
-  userlist=User.query.filter_by(UserTypeId=3).all()
+  userlist=User.query.filter_by(UserTypeId=3 and User.Id!=6).all()
   return render_template('admin/userlist.html',userlist=userlist)
 
 #general orderlist for admin
@@ -301,3 +301,87 @@ def deactivateshopstatus(id):
   shop.Status=2
   db.session.commit()
   return redirect(url_for('admin.shoplist'))
+#AddBanner
+@admin.route('/addbanner',methods=['POST','GET'])    
+def addbanner():
+    
+    
+    if request.method=='POST':
+      sliders=Slider.query.all()
+      if sliders.count==2:
+             Slider.query.delete()
+     
+      Text=request.form['Text']
+      url=request.form['URL']
+      slider1=Slider(Text=Text,URL=url)
+
+      file = request.files['photo']
+      if file.filename == '':
+        flash("No selected file !")
+        return redirect(url_for('index'))
+
+      if allowed_file(file.filename):
+
+
+        # sekilin adinin secure olub olmamasina baxib duzelis edir adi
+        filename =get_random_string(8)+ secure_filename(file.filename)
+
+        file.save(os.path.join('ecommerce\\assets', app.config['UPLOAD_FOLDER'], filename))
+        slider1=Slider(Text=Text,URL=url,Image=filename)
+
+        db.session.add(slider1)     
+        db.session.commit()
+      else:
+        flash("Non allowed file format")
+        return redirect(url_for('index'))
+    
+
+
+      
+      return render_template('client/index.html')
+
+    if request.method=='GET':
+      return render_template('admin/addbanner.html')
+  # "http://127.0.0.1:5000/admin/catproduct/1"
+
+#BannerList
+# @admin.route('/bannerlist')
+# def bannerlist():
+#     banner = Slider.query.filter_by().all()
+#     return render_template("client/layout.html", allpr = banner)
+#ProductDetail
+@admin.route('/prodetails/<int:id>', methods = ['GET','POST'])
+def prodetails(id):
+    products=Products.query.filter_by(Id=id).first()
+    if len(products.images) ==1:
+     productimage=products.images
+    else:
+     productimage=products.images[1]
+
+    if request.method == 'POST':
+      categoryId=request.form['CategoryId']
+      name=request.form['Name']
+      count=request.form['Count']
+      price=int(request.form['Price'])
+      shopId=request.form['ShopId']
+      SizeId=request.form['size[]']
+      ColorId=request.form['color[]']
+      productorder=Products(Name=name,Count=count,CategoryId=categoryId,Price=price,ShopId=shopId)
+
+      # return render_template('admin/order.html',order=productorder,SizeId=SizeId,ColorId=ColorId,ProductId=products.Id)
+      return render_template('order.html',order=productorder,SizeId=SizeId,ColorId=ColorId,ProductId=products.Id)
+
+    else:
+     return render_template('admin/productdetail.html',product=products,productimage=productimage)
+@admin.route('/generalorder')
+def generalorder():
+    
+    order=Order.query.filter_by().all()
+    
+    return render_template('admin/generalorderlist.html',order=order)
+#generalorderdelete
+@admin.route('/generalorderdelete/<int:id>')    
+def generalorderdelete(id):
+    order=Order.query.filter_by(Id=id).delete()
+    db.session.commit()
+    return redirect(url_for('admin.generalorder'))

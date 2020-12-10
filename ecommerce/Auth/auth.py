@@ -12,7 +12,8 @@ from ecommerce.admin import admin
 @auth.route('/logout')    
 def logout():
     logout_user()
-    return redirect(url_for('auth.login'))
+    session['userid']=''
+    return render_template('client/index.html')
 # @auth.route('/account')    
 # def account():
 
@@ -32,23 +33,25 @@ def login():
        
        
         if suser and bcrypt.check_password_hash(suser.Password,password) :
+          
             #  flash('İstifadəçi tapılmadı')
             #  return render_template('general/login.html')
-        #  login_user(suser,remember=request.form['exampleCheck1'])
+        #  login_user(suser,remember=request.form['remember'])
          
+
          if(suser.UserTypeId==1):
-             session.clear()
+             session['userid']=''
              session['userid'] = suser.Id
              session['UserTypeId'] = 1
              return redirect(url_for('admin.listp'))
          elif(suser.UserTypeId==2):
-             session.clear()
+             session['userid']=''
              session['userid'] = suser.Id
 
              session['UserTypeId']=2
              return redirect(url_for('shop.listp'))
          else:
-             session.clear()
+             session['userid']=''
              session['userid'] = suser.Id
              session['UserTypeId']=3
              return redirect(url_for('roots.listp'))

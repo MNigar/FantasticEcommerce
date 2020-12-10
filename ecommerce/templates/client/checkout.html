@@ -35,9 +35,9 @@
 
                                     <div class="col-md-12">
                
-                                        <label>Məhsulun adı</label>
+                                        <label>Məhsulun adı:{{product.Name}}</label>
                         
-                                        <input id="Name" name="Name" value="{{product.Name}}" type="text" class="form-control" />
+                                        <input id="Name" name="Name" value="{{product.Name}}" type="hidden" class="form-control" />
                                         </div>
                                     <div class="col-sm-6">
                                         
@@ -124,9 +124,8 @@
                                 </table><!-- End .table table-summary -->
 <label> Qapıda ödəmə</label>
                                
-                                <button type="submit" onclick="run()" class="btn btn-outline-primary-2 btn-order btn-block">
-                                    <span class="btn-text">Sifarişi tamamla</span>
-                                    
+                                <button type="submit" onclick="run()" class="btn btn-outline-primary-2">
+                                   Sifarişi tamamla
                                 </button>
                             </div><!-- End .summary -->
                         </aside><!-- End .col-lg-3 -->

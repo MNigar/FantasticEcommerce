@@ -45,10 +45,9 @@
                                                 <th>ID</th>
                                                 <th>Ad</th>
                                                 <th>Mağaza</th>
-                                                <th>Rənglər</th>
-                                                <th>Ölçülər</th>
+                                                
                                                 <th>Say</th>
-                                                <th>Qiymət</th>
+                                               
                                                 <th>Şəkil</th>
                                                 <th>Düzəliş</th>
                                         
@@ -64,18 +63,9 @@
                                               <td >{{product.Id}}</td>
                                              <td >{{product.Name}}</td>
                                              <td > {{product.Shop.Name}}</td>
-                                             <td >
-                                                {% for element in product.pcolors %}
-                                                    <p>{{element.Name}}</p>
-                                                {% endfor %}
-                                            </td>
-                                            <td >
-                                                {% for element in product.psizes %}
-                                                    <p>{{element.Name}}</p>
-                                                {% endfor %}
-                                            </td>
+                                             
                                             <td >{{product.Count}}</td>
-                                            <td >{{product.Price}} AZN</td>
+                                        
                                             <td >
                                                 {% for image in product.images %}
                                                 

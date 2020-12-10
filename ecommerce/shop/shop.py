@@ -88,7 +88,7 @@ def addpr():
 def listp():
     userid=session["userid"]
     shop=Shop.query.filter_by(UserId=userid).first()
-    products = Products.query.all()
+    products = Products.query.filter_by(ShopId=shop.Id,Status=0).all()
     return render_template("shop/productlist.html", allpr = products,shop=shop)
 @shop.route('/orderl')
 def orderl():
@@ -109,17 +109,16 @@ def do(id):
 @shop.route('/deletep/<int:id>', methods = ['GET'])
 def deletep(id):
     selectedpr = Products.query.get(id)
-    selectedpr.cproduct = []
-    selectedpr.sproduct = []
+    selectedpr.cproduct = [1]
+    selectedpr.sproduct = [1]
     for image in selectedpr.images:
         image.Image=[]
         image.MainImage=[]
         db.session.delete(image)
         # os.remove(os.path.join('static', image.Image))
         # os.remove(os.path.join('static', image.MainImage))
-
+    selectedpr.Status=1
     selectedpr.iproduct = []
     db.session.commit()
-    db.session.delete(selectedpr)
-    db.session.commit()
+    
     return redirect(url_for('shop.listp'))

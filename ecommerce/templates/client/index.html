@@ -48,234 +48,45 @@
     
     </head>
     
-
+    {% extends "client/layout.html" %}
+    {% block body %}
 <body>
     <div class="page-wrapper">
         <header class="header">
             <div class="header-top">
                 <div class="container">
-                    <div class="header-left">
-                        <div class="header-dropdown">
-                            
-                            <label>AZN</label>
+                 
 
-                        </div><!-- End .header-dropdown -->
-
-                        <div class="header-dropdown">
-                            <label>AZE</label>
-                           
-                        </div><!-- End .header-dropdown -->
-                    </div><!-- End .header-left -->
-
-                    <div class="header-right">
-                        <ul class="top-menu">
-                            <li>
-                                <a href="#">Links</a>
-                                <ul>
-                                    <li><a href="tel:#"><i class="icon-phone"></i>Əlaqə: +00000000</a></li>
-                                    <li><a href="wishlist.html"><i class="icon-heart-o"></i>Bəyəndiklərim <span>(3)</span></a></li>
-                                    <li><a href="about.html">Haqqımızda</a></li>
-                                    <li><a href="contact.html">Əlaqə</a></li>
-                                    <li><a href="{{url_for('auth.login')}}" ><i class="icon-user"></i>Daxil ol</a></li>
-                                </ul>
-                            </li>
-                        </ul><!-- End .top-menu -->
-                    </div><!-- End .header-right -->
                 </div><!-- End .container -->
             </div><!-- End .header-top -->
 
-            <div class="header-middle sticky-header">
-                <div class="container">
-                    <div class="header-left">
-                        <button class="mobile-menu-toggler">
-                            <span class="sr-only">Toggle mobile menu</span>
-                            <i class="icon-bars"></i>
-                        </button>
-
-                        <a href="index.html" class="logo">
-                            <img src="assets/images/efddb4fb-3e92-49d1-bd14-56fab2260ba9_200x200.png" alt="Molla Logo" width="105" height="25" style="margin: 0px;">
-                        </a>
-
-                        <nav class="main-nav">
-                            <ul class="menu sf-arrows">
-                                <li class="megamenu-container">
-                                    <a href="index-7.html" >Ana Səhifə</a>
-
-                                   
-                                </li>
-                                <li>
-                                    <li class="megamenu-container active">
-                                    <a href="category.html" class="sf-with-ul">Məhsullar</a>
-                                </li>
-                                    <div class="megamenu megamenu-md">
-                                        <div class="row no-gutters">
-                                            <div class="col-md-8">
-                                                <div class="menu-col">
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="menu-title">Məsullar</div><!-- End .menu-title -->
-                                                            <ul>
-                                                            
-                                                                <li><a href="category-4cols.html">Bütün Məsullar</a></li>
-                                                            </ul>
-
-                                                            <div class="menu-title">Kateqoriyalar</div><!-- End .menu-title -->
-                                                            <ul>
-                                                                <li><a href="category-fullwidth.html">Bütün Kateqoriyar</a></li>
-                                                            </ul>
-                                                        </div><!-- End .col-md-6 -->
-
-                                                       
-                                                    </div><!-- End .row -->
-                                                </div><!-- End .menu-col -->
-                                            </div><!-- End .col-md-8 -->
-
-                                           
-                                        </div><!-- End .row -->
-                                    </div><!-- End .megamenu megamenu-md -->
-                                </li>
-                               
-                                <li>
-                                    <a href="about-2.html" >Haqqımızda</a>
-                                    
-                                </li>
-                                <li><a href="contact.html">Əlaqə</a></li>
-                               
-                            </ul><!-- End .menu -->
-                        </nav><!-- End .main-nav -->
-                    </div><!-- End .header-left -->
-
-                    <div class="header-right">
-                        <div class="header-search">
-                            <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-                            <form action="#" method="get">
-                                <div class="header-search-wrapper">
-                                    <label for="q" class="sr-only">Search</label>
-                                    <input type="search" class="form-control" name="q" id="q" placeholder="Axtarış..." required>
-                                </div><!-- End .header-search-wrapper -->
-                            </form>
-                        </div><!-- End .header-search -->
-                        <div class="dropdown compare-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Compare Products" aria-label="Compare Products">
-                                <i class="icon-random"></i>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <ul class="compare-products">
-                                    <li class="compare-product">
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                        <h4 class="compare-product-title"><a href="product.html">Blue Night Dress</a></h4>
-                                    </li>
-                                    <li class="compare-product">
-                                      <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                        <h4 class="compare-product-title"><a href="product.html">White Long Skirt</a></h4>
-                                    </li>
-                                </ul>
-
-                                <div class="compare-actions">
-                                    <a href="#" class="action-link">Clear All</a>
-                                    <a href="#" class="btn btn-outline-primary-2"><span>Compare</span><i class="icon-long-arrow-right"></i></a>
-                                </div>
-                            </div><!-- End .dropdown-menu -->
-                        </div><!-- End .compare-dropdown -->
-
-                        <div class="dropdown cart-dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                <i class="icon-shopping-cart"></i>
-                                <span class="cart-count">2</span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <div class="dropdown-cart-products">
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Beige knitted elastic runner shoes</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $84.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="assets/images/products/cart/product-1.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                    </div><!-- End .product -->
-
-                                    <div class="product">
-                                        <div class="product-cart-details">
-                                            <h4 class="product-title">
-                                                <a href="product.html">Blue utility pinafore denim dress</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-                                                <span class="cart-product-qty">1</span>
-                                                x $76.00
-                                            </span>
-                                        </div><!-- End .product-cart-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="product.html" class="product-image">
-                                                <img src="assets/images/products/cart/product-2.jpg" alt="product">
-                                            </a>
-                                        </figure>
-                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                                    </div><!-- End .product -->
-                                </div><!-- End .cart-product -->
-
-                                <div class="dropdown-cart-total">
-                                    <span>Total</span>
-
-                                    <span class="cart-total-price">$160.00</span>
-                                </div><!-- End .dropdown-cart-total -->
-
-                                <div class="dropdown-cart-action">
-                                    <a href="cart.html" class="btn btn-primary">View Cart</a>
-                                    <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
-                                </div><!-- End .dropdown-cart-total -->
-                            </div><!-- End .dropdown-menu -->
-                        </div><!-- End .cart-dropdown -->
-                    </div><!-- End .header-right -->
-                </div><!-- End .container -->
-            </div><!-- End .header-middle -->
         </header><!-- End .header -->
 
         <main class="main">
             <div class="container-fluid">
                 <div class="row">
+                    {% for i in slider() %}
                     <div class="col-lg-6">
                         <div class="banner banner-big banner-overlay">
-                            <a href="#">
-                                <img src="{{  url_for('static',filename='template/assets/images/banners/22.Brunello-Cucinelli-FW20-_women-1024x683.jpg')  }}"  style="width: 709px; height:403px"Banner">
+                            <a href="{{i.URL}}">
+                                <img src="{{url_for('static', filename ='upload/'+ i.Image)}}"  style="width: 630px; height:403px"Banner">
                             </a>
                             
                             <div class="banner-content banner-content-center">
                                 <h3 class="banner-subtitle text-white"><a href="#">Yeni kolleksiya</a></h3><!-- End .banner-subtitle -->
-                                <h2 class="banner-title text-white"><a href="#">Qadın geyimləri</a></h2><!-- End .banner-title -->
+                                <h2 class="banner-title text-white"><a href="#">{{i.Text}}</a></h2><!-- End .banner-title -->
                               
                             </div><!-- End .banner-content -->
                         </div><!-- End .banner -->
                     </div><!-- End .col-lg-6 -->
+                    {%endfor%}
 
-                    <div class="col-lg-6">
-                        <div class="banner banner-big banner-overlay">
-                            <a href="#">
-                                <img src="{{  url_for('static',filename='template/assets/images/demos/demo-7/banners/banner-2.jpg')  }}" alt="Banner">
-                            </a>
-                            
-                            <div class="banner-content banner-content-center">
-                                <h3 class="banner-subtitle text-white"><a href="#">Yeni kolleksiya</a></h3><!-- End .banner-subtitle -->
-                                <h2 class="banner-title text-white"><a href="#">Kişi geyimləri</a></h2><!-- End .banner-title -->
-                            </div><!-- End .banner-content -->
-                        </div><!-- End .banner -->
-                    </div><!-- End .col-lg-6 -->
+
+
+
+                   
                 </div><!-- End .row -->
-
+            </div>
                 <div class="row justify-content-center">
                     <div class="col-md-6 col-lg-4">
                         <div class="banner banner-overlay text-white">
@@ -293,7 +104,7 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="banner banner-overlay color-grey">
                             <a href="#">
-                                <img src="assets/images/demos/demo-7/banners/banner-4.jpg" alt="Banner">
+                                <img src="{{  url_for('static',filename='template/assets/images/demos/demo-7/banners/banner-3.jpg')  }}" alt="Banner">
                             </a>
 
                             <div class="banner-content">
@@ -307,7 +118,7 @@
                     <div class="col-md-6 col-lg-4">
                         <div class="banner banner-overlay text-white">
                             <a href="#">
-                                <img src="assets/images/demos/demo-7/banners/banner-5.jpg" alt="Banner">
+                                <img src="{{  url_for('static',filename='template/assets/images/demos/demo-7/banners/banner-3.jpg')  }}" alt="Banner">
                             </a>
 
                             <div class="banner-content banner-content-right mr">
@@ -319,11 +130,15 @@
                     </div><!-- End .col-lg-4 -->
                 </div><!-- End .row -->
             </div><!-- End .container-fluid -->
-
+        
+       
             <div class="icon-boxes-container bg-transparent">
+              
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-8 col-12 icon-boxes">
+                            <div class="row justify-content-center">
+
                             <div class="col-sm-6 col-lg-4">
                                 <div class="icon-box icon-box-side">
                                     <span class="icon-box-icon">
@@ -331,12 +146,12 @@
                                     </span>
 
                                     <div class="icon-box-content">
-                                        <h3 class="icon-box-title">Payment & Delivery</h3><!-- End .icon-box-title -->
-                                        <p>Free shipping for orders over $50</p>
+                                        <h3 class="icon-box-title">Ödəniş və Çatdırılma</h3><!-- End .icon-box-title -->
+                                        <p>Qapıda ödəmə</p>
                                     </div><!-- End .icon-box-content -->
                                 </div><!-- End .icon-box -->
                             </div><!-- End .col-sm-6 col-lg-4 -->
-                            
+                      
                             <div class="col-sm-6 col-lg-4">
                                 <div class="icon-box icon-box-side">
                                     <span class="icon-box-icon">
@@ -344,8 +159,8 @@
                                     </span>
 
                                     <div class="icon-box-content">
-                                        <h3 class="icon-box-title">Return & Refund</h3><!-- End .icon-box-title -->
-                                        <p>Free 100% money back guarantee</p>
+                                        <h3 class="icon-box-title">Qaytarılma Xidməti</h3><!-- End .icon-box-title -->
+                                        <p>14 gün ərzində qaytarılma </p>
                                     </div><!-- End .icon-box-content -->
                                 </div><!-- End .icon-box -->
                             </div><!-- End .col-sm-6 col-lg-4 -->
@@ -357,388 +172,22 @@
                                     </span>
 
                                     <div class="icon-box-content">
-                                        <h3 class="icon-box-title">Quality Support</h3><!-- End .icon-box-title -->
-                                        <p>Alway online feedback 24/7</p>
+                                        <h3 class="icon-box-title">Dəstək</h3><!-- End .icon-box-title -->
+                                        <p>bitcom@gmail.com</p>
                                     </div><!-- End .icon-box-content -->
                                 </div><!-- End .icon-box -->
                             </div><!-- End .col-sm-6 col-lg-4 -->
                         </div>
+                        </div>
                     </div><!-- End .row -->
                 </div><!-- End .container -->
             </div><!-- End .icon-boxes-container -->
-
-            <div class="bg-light-2 pt-6 pb-6 featured">
-                <div class="container-fluid">
-                    <div class="heading heading-center mb-3">
-                        <h2 class="title">FEATURED PRODUCTS</h2><!-- End .title -->
-
-                        <ul class="nav nav-pills justify-content-center" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="featured-women-link" data-toggle="tab" href="#featured-women-tab" role="tab" aria-controls="featured-women-tab" aria-selected="true">Womens Clothing</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="featured-men-link" data-toggle="tab" href="#featured-men-tab" role="tab" aria-controls="featured-men-tab" aria-selected="false">Mens Clothing</a>
-                            </li>
-                        </ul>
-                    </div><!-- End .heading -->
-
-                    <div class="tab-content tab-content-carousel">
-                        <div class="tab-pane p-0 fade show active" id="featured-women-tab" role="tabpanel" aria-labelledby="featured-women-link">
-                            <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
-                                data-owl-options='{
-                                    "nav": false, 
-                                    "dots": true,
-                                    "margin": 20,
-                                    "loop": false,
-                                    "responsive": {
-                                        "0": {
-                                            "items":2
-                                        },
-                                        "480": {
-                                            "items":2
-                                        },
-                                        "768": {
-                                            "items":3
-                                        },
-                                        "992": {
-                                            "items":4
-                                        },
-                                        "1200": {
-                                            "items":5,
-                                            "nav": true
-                                        }
-                                    }
-                                }'>
-                                <div class="product product-7 text-center">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-7/products/product-1-1.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-7/products/product-1-2.jpg" alt="Product image" class="product-image-hover">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                        </div><!-- End .product-action-vertical -->
-
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <h3 class="product-title"><a href="product.html">Backpack</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            $60.00
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 2 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-
-                                <div class="product product-7 text-center">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-7/products/product-2-1.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-7/products/product-2-2.jpg" alt="Product image" class="product-image-hover">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                        </div><!-- End .product-action-vertical -->
-
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <h3 class="product-title"><a href="product.html">Biker jacket</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            $120.99
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 2 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-
-                                        <div class="product-nav product-nav-dots">
-                                            <a href="#" class="active" style="background: #d79442;"><span class="sr-only">Color name</span></a>
-                                            <a href="#" style="background: #cc3333;"><span class="sr-only">Color name</span></a>
-                                        </div><!-- End .product-nav -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                                <div class="product product-7 text-center">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-7/products/product-3-1.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-7/products/product-3-2.jpg" alt="Product image" class="product-image-hover">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                        </div><!-- End .product-action-vertical -->
-
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <h3 class="product-title"><a href="product.html">Sandals</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            $70.00
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 60%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 4 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                                <div class="product product-7 text-center">
-                                    <figure class="product-media">
-                                        <span class="product-label label-circle label-sale">Sale</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-7/products/product-4-1.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-7/products/product-4-2.jpg" alt="Product image" class="product-image-hover">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                        </div><!-- End .product-action-vertical -->
-
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="deal-countdown offer-countdown" data-until="+11d"></div><!-- End .deal-countdown -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <h3 class="product-title"><a href="product.html">Super Skinny High Jeggings</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="new-price">$190.00</span>
-                                            <span class="old-price">$310.00</span>
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 40%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 4 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                                <div class="product product-7 text-center">
-                                    <figure class="product-media">
-                                        <span class="product-label label-circle label-top">Top</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-7/products/product-5-1.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-7/products/product-5-2.jpg" alt="Product image" class="product-image-hover">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                        </div><!-- End .product-action-vertical -->
-
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <h3 class="product-title"><a href="product.html">Short wrap dress</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            $80.00
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 100%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 6 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                                <div class="product product-7 text-center">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-7/products/product-1-1.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-7/products/product-1-2.jpg" alt="Product image" class="product-image-hover">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                        </div><!-- End .product-action-vertical -->
-
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <h3 class="product-title"><a href="product.html">Backpack</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            $60.00
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 2 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .owl-carousel -->
-                        </div><!-- .End .tab-pane -->
-                        <div class="tab-pane p-0 fade" id="featured-men-tab" role="tabpanel" aria-labelledby="featured-men-link">
-                            <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
-                                data-owl-options='{
-                                    "nav": false, 
-                                    "dots": true,
-                                    "margin": 20,
-                                    "loop": false,
-                                    "responsive": {
-                                        "0": {
-                                            "items":1
-                                        },
-                                        "480": {
-                                            "items":2
-                                        },
-                                        "768": {
-                                            "items":3
-                                        },
-                                        "992": {
-                                            "items":4
-                                        },
-                                        "1200": {
-                                            "items":5,
-                                            "nav": true
-                                        }
-                                    }
-                                }'>
-                                <div class="product product-7 text-center">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-7/products/product-2-1.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-7/products/product-2-2.jpg" alt="Product image" class="product-image-hover">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                        </div><!-- End .product-action-vertical -->
-
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <h3 class="product-title"><a href="product.html">Biker jacket</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            $120.99
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 20%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 2 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-
-                                        <div class="product-nav product-nav-dots">
-                                            <a href="#" class="active" style="background: #d79442;"><span class="sr-only">Color name</span></a>
-                                            <a href="#" style="background: #cc3333;"><span class="sr-only">Color name</span></a>
-                                        </div><!-- End .product-nav -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                                <div class="product product-7 text-center">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-7/products/product-3-1.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-7/products/product-3-2.jpg" alt="Product image" class="product-image-hover">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                        </div><!-- End .product-action-vertical -->
-
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <h3 class="product-title"><a href="product.html">Sandals</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            $70.00
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 60%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 4 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                                <div class="product product-7 text-center">
-                                    <figure class="product-media">
-                                        <span class="product-label label-circle label-sale">Sale</span>
-                                        <a href="product.html">
-                                            <img src="assets/images/demos/demo-7/products/product-4-1.jpg" alt="Product image" class="product-image">
-                                            <img src="assets/images/demos/demo-7/products/product-4-2.jpg" alt="Product image" class="product-image-hover">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                                            <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                                        </div><!-- End .product-action-vertical -->
-
-                                        <div class="product-action">
-                                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                        </div><!-- End .product-action -->
-
-                                        <div class="deal-countdown offer-countdown" data-until="+11d"></div><!-- End .deal-countdown -->
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <h3 class="product-title"><a href="product.html">Super Skinny High Jeggings</a></h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="new-price">$190.00</span>
-                                            <span class="old-price">$310.00</span>
-                                        </div><!-- End .product-price -->
-                                        <div class="ratings-container">
-                                            <div class="ratings">
-                                                <div class="ratings-val" style="width: 40%;"></div><!-- End .ratings-val -->
-                                            </div><!-- End .ratings -->
-                                            <span class="ratings-text">( 4 Reviews )</span>
-                                        </div><!-- End .rating-container -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product -->
-                            </div><!-- End .owl-carousel -->
-                        </div><!-- .End .tab-pane -->
-                    </div><!-- End .tab-content -->
-                </div><!-- End .container-fluid -->
-            </div><!-- End .bg-light-2 pt-4 pb-4 -->
-
-            <div class="mb-6"></div><!-- End .mb-6 -->
+     
 
             <div class="container-fluid">
                 <div class="heading heading-center mb-3">
-                    <h2 class="title">NEW ARRIVALS</h2><!-- End .title -->
-
+                    <h2 class="title">Kolloksiyalar</h2><!-- End .title -->
+                    
                     <ul class="nav nav-pills justify-content-center" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="new-women-link" data-toggle="tab" href="#new-women-tab" role="tab" aria-controls="new-women-tab" aria-selected="true">Womens Clothing</a>
@@ -747,6 +196,7 @@
                             <a class="nav-link" id="new-men-link" data-toggle="tab" href="#new-men-tab" role="tab" aria-controls="new-men-tab" aria-selected="false">Mens Clothing</a>
                         </li>
                     </ul>
+                   
                 </div><!-- End .heading -->
 
                 <div class="tab-content">
@@ -1304,257 +754,14 @@
 
                 <hr class="mt-0 mb-6">
                 
-                <div class="blog-posts mb-4">
-                    <h2 class="title text-center mb-3">From Our Blog</h2><!-- End .title text-center -->
-
-                    <div class="owl-carousel owl-simple mb-2" data-toggle="owl" 
-                        data-owl-options='{
-                            "nav": false, 
-                            "dots": true,
-                            "items": 3,
-                            "margin": 20,
-                            "loop": false,
-                            "responsive": {
-                                "0": {
-                                    "items":1
-                                },
-                                "520": {
-                                    "items":2
-                                },
-                                "768": {
-                                    "items":3
-                                },
-                                "992": {
-                                    "items":4
-                                }
-                            }
-                        }'>
-                        <article class="entry">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assets/images/demos/demo-7/blog/post-1.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body text-center">
-                                <div class="entry-meta">
-                                    <a href="#">Nov 22, 2018</a>, 1 Comments
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title">
-                                    <a href="single.html">Sed adipiscing ornare.</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <a href="single.html" class="read-more">Read More</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-
-                        <article class="entry">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assets/images/demos/demo-7/blog/post-2.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body text-center">
-                                <div class="entry-meta">
-                                    <a href="#">Dec 12, 2018</a>, 0 Comments
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title">
-                                    <a href="single.html">Fusce lacinia arcuet nulla.</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <a href="single.html" class="read-more">Read More</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-
-                        <article class="entry">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assets/images/demos/demo-7/blog/post-3.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body text-center">
-                                <div class="entry-meta">
-                                    <a href="#">Dec 19, 2018</a>, 2 Comments
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title">
-                                    <a href="single.html">Quisque volutpat mattis eros.</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <a href="single.html" class="read-more">Read More</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-
-                        <article class="entry">
-                            <figure class="entry-media">
-                                <a href="single.html">
-                                    <img src="assets/images/demos/demo-7/blog/post-4.jpg" alt="image desc">
-                                </a>
-                            </figure><!-- End .entry-media -->
-
-                            <div class="entry-body text-center">
-                                <div class="entry-meta">
-                                    <a href="#">Dec 25, 2018</a>, 3 Comments
-                                </div><!-- End .entry-meta -->
-
-                                <h3 class="entry-title">
-                                    <a href="single.html">Mauris suscipit in massa.</a>
-                                </h3><!-- End .entry-title -->
-
-                                <div class="entry-content">
-                                    <a href="single.html" class="read-more">Read More</a>
-                                </div><!-- End .entry-content -->
-                            </div><!-- End .entry-body -->
-                        </article><!-- End .entry -->
-                    </div><!-- End .owl-carousel -->
-                </div><!-- End .blog-posts -->
+           
             </div><!-- End .container-fluid -->
 
-            <div class="bg-light-2 pt-7 pb-6 testimonials">
-                <div class="container">
-                    <h2 class="title text-center mb-2">Our Customers Say</h2><!-- End .title text-center -->
-                    <div class="owl-carousel owl-simple owl-testimonials" data-toggle="owl" 
-                        data-owl-options='{
-                            "nav": false, 
-                            "dots": true,
-                            "margin": 20,
-                            "loop": false,
-                            "responsive": {
-                                "1200": {
-                                    "nav": true
-                                }
-                            }
-                        }'>
-                        <blockquote class="testimonial testimonial-icon text-center">
-                            <p class="lead">“Really great store”</p><!-- End .lead -->
-                            <p>“ Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis. Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra<br>a, ultricies in, diam. Sed arcu. ”</p>
-
-                            <cite>
-                                Charly Smith,
-                                <span>Customer</span>
-                            </cite>
-                        </blockquote><!-- End .testimonial -->
-
-                        <blockquote class="testimonial testimonial-icon text-center">
-                            <p class="lead">“Friendly Support”</p><!-- End .lead -->
-                            <p>“ Impedit, ratione sequi, sunt incidunt magnam et. Delectus obcaecati optio eius error libero perferendis nesciunt atque dolores magni recusandae! Doloremque quidem error eum quis similique doloribus natus qui ut ipsum.”</p>
-
-                            <cite>
-                                Damon Stone
-                                <span>Customer</span>
-                            </cite>
-                        </blockquote><!-- End .testimonial -->
-
-                        <blockquote class="testimonial testimonial-icon text-center">
-                            <p class="lead">“Free Shipping”</p><!-- End .lead -->
-                            <p>“ Molestias animi illo natus ut quod neque ad accusamus praesentium fuga! Dolores odio alias sapiente odit delectus quasi, explicabo a, modi voluptatibus. Perferendis perspiciatis, voluptate, distinctio earum veritatis animi tempora eget blandit nunc tortor mollis ”</p>
-
-                            <cite>
-                                John Smith
-                                <span>Customer</span>
-                            </cite>
-                        </blockquote><!-- End .testimonial -->
-                    </div><!-- End .testimonials-slider owl-carousel -->
-                </div><!-- End .container -->
-            </div><!-- End .bg-light pt-5 pb-5 -->
-
+    
          
         </main><!-- End .main -->
 
-        <footer class="footer footer-2">
-            <div class="footer-middle">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-12 col-lg-4">
-                            <div class="widget widget-about">
-                                <img src="assets/images/efddb4fb-3e92-49d1-bd14-56fab2260ba9_200x200.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
-                                <div class="widget-about-info">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-md-4">
-                                            <span class="widget-about-title">Sualınız var? Əlaqə 24/7</span>
-                                            <a href="tel:123456789">+000 000 00</a>
-                                        </div><!-- End .col-sm-6 -->
-                                        <div class="col-sm-6 col-md-8">
-                                            <span class="widget-about-title">Ödəniş üsulları</span>
-                                            <figure class="footer-payments">
-                                                <img src="assets/images/payments.png" alt="Payment methods" width="272" height="20">
-                                            </figure><!-- End .footer-payments -->
-                                        </div><!-- End .col-sm-6 -->
-                                    </div><!-- End .row -->
-                                </div><!-- End .widget-about-info -->
-                            </div><!-- End .widget about-widget -->
-                        </div><!-- End .col-sm-12 col-lg-4 -->
-
-                        <div class="col-sm-4 col-lg-2">
-                            <div class="widget">
-                                <h4 class="widget-title">Səhifələr</h4><!-- End .widget-title -->
-
-                                <ul class="widget-list">
-                                    <li><a href="about-2.html">About Molla</a></li>
-                                 
-                                    <li><a href="contact.html"> Məhsullar</a></li>
-                                    <li><a href="contact.html"> Əlaqə</a></li>
-                                    <li><a href="login.html">Log in</a></li>
-                                </ul><!-- End .widget-list -->
-                            </div><!-- End .widget -->
-                        </div><!-- End .col-sm-4 col-lg-2 -->
-
-                        <div class="col-sm-4 col-lg-2">
-                            <div class="widget">
-                                <h4 class="widget-title">Müştəri Xidmətləri</h4><!-- End .widget-title -->
-
-                                <ul class="widget-list">
-                                    <li><a href="#">Ödəniş üsulları</a></li>
-                                    <li><a href="#">Məhsulun qaytarılması</a></li>
-                                    <li><a href="#">Çatdırılması</a></li>
-                                    <li><a href="#">Şərtlər</a></li>
-                                    <li><a href="#">Təhlükəsizlik</a></li>
-                                </ul><!-- End .widget-list -->
-                            </div><!-- End .widget -->
-                        </div><!-- End .col-sm-4 col-lg-2 -->
-
-                        <div class="col-sm-4 col-lg-2">
-                            <div class="widget">
-                                <h4 class="widget-title">Mənim Hesabım</h4><!-- End .widget-title -->
-
-                                <ul class="widget-list">
-                                    <li><a href="#">Daxil ol</a></li>
-                                   
-                                    <li><a href="#">Bəyəndiklərim</a></li>
-                                  
-                                    <li><a href="#">Kömək</a></li>
-                                </ul><!-- End .widget-list -->
-                            </div><!-- End .widget -->
-                        </div><!-- End .col-sm-4 col-lg-2 -->
-
-                       
-                    </div><!-- End .row -->
-                </div><!-- End .container-fluid -->
-            </div><!-- End .footer-middle -->
-
-            <div class="footer-bottom">
-                <div class="container-fluid">
-                   
-                    <div class="social-icons social-icons-color">
-                        <span class="social-label">Sosial Media </span>
-                        <a href="#" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-                        <a href="#" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-                        <a href="#" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-                        
-                    </div><!-- End .soial-icons -->
-                </div><!-- End .container-fluid -->
-            </div><!-- End .footer-bottom -->
-        </footer><!-- End .footer -->
+       
     </div><!-- End .page-wrapper -->
     <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
 
@@ -1826,5 +1033,5 @@
 
 
 </body>
-
+{%endblock%}
 </html>

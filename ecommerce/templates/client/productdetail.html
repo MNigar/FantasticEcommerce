@@ -72,11 +72,12 @@
                     <div class="product-details-top">
                         <div class="row">
                             <div class="col-md-6">
-                                {% for image in product.images %}
+                             
                                 <div class="product-gallery product-gallery-vertical">
                                     <div class="row">
                                         <figure class="product-main-image">
-                                            <img id="product-zoom" src="{{url_for('static', filename ='upload/'+ image.MainImage)}}" data-zoom-image="{{url_for('static', filename ='upload/'+ image.MainImage)}}">
+                                            <img id="product-zoom" src="{{url_for('static', filename ='upload/'+ productimage.Image)}}"
+                                             data-zoom-image="{{url_for('static', filename ='upload/'+ productimage.Image)}}">
 
                                             <a href="#" id="btn-product-gallery" class="btn-product-gallery">
                                                 <i class="icon-arrows"></i>
@@ -84,16 +85,17 @@
                                         </figure><!-- End .product-main-image -->
 
                                         <div id="product-zoom-gallery" class="product-image-gallery">
+                                            {% for image in product.images %}
                                             <a class="product-gallery-item active" href="#" data-image="{{url_for('static', filename ='upload/'+ image.Image)}}"
                                              data-zoom-image="{{url_for('static', filename ='upload/'+ image.Image)}}">
                                                 <img src="{{url_for('static', filename ='upload/'+ image.Image)}}" alt="product side">
                                             </a>
-
+                                            {%endfor%}
                                           
                                         </div><!-- End .product-image-gallery -->
                                     </div><!-- End .row -->
                                 </div><!-- End .product-gallery -->
-                                {%endfor%}
+
                             </div><!-- End .col-md-6 -->
 
                             <div class="col-md-6">
@@ -108,7 +110,7 @@
                                     </div><!-- End .rating-container -->
 
                                     <div class="product-price">
-                                      {{product.Price}}
+                                      {{product.Price}} AZN
                                     </div><!-- End .product-price -->
 
                                     <div class="product-content">
@@ -151,17 +153,27 @@
                                         <div class="product-details-quantity">
                                             <input id="Count" name="Count" type="number" class="form-control" />                                         </div><!-- End .product-details-quantity -->
                                     </div><!-- End .details-filter-row -->
-
+                                  
                                     <div class="product-details-action">
-                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                        <a href=" {{url_for('roots.order',productid=product.Id)}}" class="btn-product btn-cart" onclick="GetSelectedValue()"><i class="mdi mdi-cart mr-2"></i>Sifariş edin </a>
+                                    </div>
 
-                                        <div class="details-action-wrapper">
-                                            <a href=" {{url_for('roots.order',productid=product.Id)}}" class="btn-product btn-cart" onclick="GetSelectedValue()"><i class="mdi mdi-cart mr-2"></i>Sifariş edin </a>
+                                     <div class="product-details-action">
+                                    <div>
 
-                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
-                                        </div><!-- End .details-action-wrapper -->
+                                   
+                                       
+                                            <!-- <a href="#" class="btn-product btn-cart" title="Wishlist"><span>Add to Cart</span></a> -->
+                                       
                                     </div><!-- End .product-details-action -->
+           
+                                    <div>
 
+                                      
+                                            <!-- <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a> -->
+                                      
+                                    </div><!-- End .product-details-action -->
+                                </div>
                                 </div><!-- End .product-details -->
                             </div><!-- End .col-md-6 -->
                         </div><!-- End .row -->

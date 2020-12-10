@@ -1,9 +1,13 @@
 
 <!DOCTYPE html>
 <html lang="en">
+   
     {% extends "admin/layout.html" %}
     {% block body %}
+<style>
+    .contain {object-fit: contain;}
 
+</style>
         <div class="page-wrapper">
 
             <!-- Page Content-->
@@ -45,11 +49,8 @@
                                                 <th scope="col">ID</th>
                                                 <th scope="col" >Ad</th>
                                                 <th scope="col">Mağaza</th>
-                                                <th scope="col">Rənglər</th>
-                                               
-                                                <th scope="col">Ölçülər</th>
-                                                <th scope="col">Say</th>
                                                 <th scope="col">Qiymət</th>
+                                                <th scope="col">Say</th>
                                                 <th scope="col">Şəkil</th>
                                                 <th scope="col">Düzəliş</th>
                                         
@@ -63,35 +64,26 @@
                                            
                                     {% for product in allpr %}
                                         <tr>
-                                          <td >{{product.Id}}</td>
-                                         <td >{{product.Name}}</td>
-                                         <td > {{product.Shop.Name}}</td>
-                                         <td >
-                                            {% for element in product.pcolors %}
-                                                <p>{{element.Name}}</p>
-                                            {% endfor %}
-                                        </td>
-                                        <td >
-                                            {% for element in product.psizes %}
-                                                <p>{{element.Name}}</p>
-                                            {% endfor %}
-                                        </td>
-                                        <td >{{product.Count}}</td>
-                                        <td >{{product.Price}} AZN</td>
-                                        <td >
+                                          <td style="text-align:center">{{product.Id}}</td>
+                                         <td  style="text-align:center">{{product.Name}}</td>
+                                         <td style="text-align:center"> {{product.Shop.Name}}</td>
+                                         
+                                         <td style="text-align:center">{{product.Price}} AZN</td>
+                                        <td style="text-align:center">{{product.Count}}</td>
+                                        <td style="text-align:center">
                                             {% for image in product.images %}
                                             
-                                            <img  style="margin: 10px;" src="{{url_for('static', filename ='upload/'+ image.Image)}}"  width="100px" height="100px" alt="">
+                                            <img class="contain"  style="width:200px;height:100px" src="{{url_for('static', filename ='upload/'+ image.Image)}}"  alt="">
                                   
                                             {% endfor %}
                                          </td>
       
-                                         <td >
+                                         <td style="text-align:center" >
        
                                             <a href="{{url_for('admin.deletep',id=product.Id)}}"  >Sil</a>
                                             
                                             <a href="{{url_for('admin.editp',id= product.Id) }}" >Dəyiş</a>
-                                            <a href="{{url_for('roots.prodetails', id=product.Id) }}" >detal
+                                            <a href="{{url_for('admin.prodetails', id=product.Id) }}" >detal
                                             </a>
 
                                         </td>

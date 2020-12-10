@@ -25,7 +25,7 @@
                         </div><!--end col-->
                     </div>
                     <!-- end page title end breadcrumb -->
-                    <form id="Forms" action="{{url_for('roots.prodetails', id = product.Id)}}" method="POST" enctype="multipart/form-data">
+                    <form id="Forms" action="{{url_for('admin.prodetails', id = product.Id)}}" method="POST" enctype="multipart/form-data">
 
                     <div class="row">
                         <div class="col-12">
@@ -34,11 +34,11 @@
                                     <div class="row">
                                         <div class="col-lg-6 align-self-center">
 
-                                            {% for image in product.images %}
                                             
-                                            <img width="400px" style="margin: 10px;" src="{{url_for('static', filename ='upload/'+ image.MainImage)}}" alt="">
+                                            
+                                            <img width="400px" style="margin: 10px;" src="{{url_for('static', filename ='upload/'+ productimage.Image)}}" alt="">
                                   
-                                            {% endfor %}
+                                        
                                        
                                         </div><!--end col-->
 
