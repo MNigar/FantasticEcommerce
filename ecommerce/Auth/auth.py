@@ -12,8 +12,9 @@ from ecommerce.admin import admin
 @auth.route('/logout')    
 def logout():
     logout_user()
-    session['userid']=''
-    return render_template('client/index.html')
+    session['userid']=0
+    userid=session['userid']
+    return render_template('client/index.html',userid=userid)
 # @auth.route('/account')    
 # def account():
 
@@ -163,4 +164,16 @@ def user():
         return "sehv"
 @app.route("/")
 def index():
-    return render_template('client/index.html')
+    if 'userid' in session:
+     userid = session['userid']
+    else:
+     userid=0
+    return render_template('client/index.html',userid=userid)
+@app.route("/index")
+def index1():
+    if 'userid' in session:
+     userid = session['userid']
+    else:
+     userid=0
+    return render_template('client/index.html',userid=userid)
+    

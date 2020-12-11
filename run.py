@@ -20,15 +20,18 @@ def slider():
         bannerList=Slider.query.all()
         return bannerList
     return {'slider': slider} 
-@app.context_processor
-def sessions():
-    def sessions():
-        if session['userid']=='':
+# @app.context_processor
+# def sessions():
+#     def sessions():
+        
+        
+#         # if userid=='':
          
-         return 0
-        else:
-          return session['userid']
-    return {'sessions': sessions}
+#         #  return 0
+#         # else:
+#         #   return userid
+
+#     return {'sessions': sessions}
 
 if __name__ == '__main__':    
      app.run(debug=True)

@@ -42,7 +42,6 @@
                
                 <label>Məhsulun adı</label>
 
-                <input id="Name" name="Name" value="{{product.Name}}" type="text" class="form-control" />
                 </div>
               </div>
               
@@ -138,6 +137,8 @@
 </div>
 </div>
 </div>
+<script src="{{url_for('static',filename='Validator.js')  }} "></script>
+
 <script>
     var inputF = document.getElementById("F"); 
     var color=document.getElementById("color")

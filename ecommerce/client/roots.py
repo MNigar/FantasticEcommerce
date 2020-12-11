@@ -24,7 +24,7 @@ mail = Mail(app)
 def prodetails(id):
     products=Products.query.filter_by(Id=id).first()
 
-    productimage=products.images[1]
+ 
     if request.method == 'POST':
       categoryId=request.form['CategoryId']
       name=request.form['Name']
@@ -39,7 +39,7 @@ def prodetails(id):
       return render_template('order.html',order=productorder,SizeId=SizeId,ColorId=ColorId,ProductId=products.Id)
 
     else:
-     return render_template('client/productdetail.html',product=products,productimage=productimage)
+     return render_template('client/productdetail.html',product=products,)
 #ProductList
 @client.route('/listp')
 def listp():
@@ -59,7 +59,7 @@ def order(productid):
 
     if request.method == 'POST':
       
-      if session["userid"]=='':
+      if session["userid"]==0:
          
          UserId=6
       else :
@@ -108,3 +108,5 @@ def catproduct(id):
 @client.route('/about', methods = ['GET'])
 def about():
   return render_template('client/about.html')
+
+
