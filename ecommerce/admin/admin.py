@@ -123,8 +123,21 @@ def addpr():
       price=float(request.form['Price'])
       shopId=int(request.form['ShopId'])
       description=request.form['Description']
+      mainimage=request.files['MainImage']
       Status=0
-      product=Products(Name=name,Count=count,CategoryId=categoryId,Price=price,ShopId=shopId,Description=description,Status=Status)
+      
+         
+      if mainimage.filename=='':
+          flash("no selected file")
+          return redirect(url_for('admin.addpr'))
+      
+      if allowed_file(mainimage.filename):
+    
+        mainfilename=get_random_string(8)+secure_filename(mainimage.filename)
+        mainimage.save(os.path.join('ecommerce\\assets',app.config['UPLOAD_FOLDER'],mainfilename))
+      else:
+            return "oneerror" 
+      product=Products(Name=name,Count=count,CategoryId=categoryId,MainImage=mainfilename,Price=price,ShopId=shopId,Description=description,Status=Status)
       selectedproductobj=product
       selectedcolor = request.form.getlist('color[]')
       selectedsize= request.form.getlist('size[]')
@@ -139,28 +152,31 @@ def addpr():
       for size in selectedsize:
          selectedsize1=Size.query.filter_by(Id=size).first()
          selectedsize1.sproduct.append(selectedproductobj)
-      mainimage=request.files['MainImage']
-      if mainimage.filename=='':
-          flash("no selected file")
-          return redirect(url_for('admin.addpr'))
-      if allowed_file(mainimage.filename):
+      # mainimage=request.files['MainImage']
+      # if mainimage.filename=='':
+      #     flash("no selected file")
+      #     return redirect(url_for('admin.addpr'))
+      
+      # if allowed_file(mainimage.filename):
     
-        mainfilename=get_random_string(8)+secure_filename(mainimage.filename)
-     
-        for image in files:
-          if allowed_file(image.filename):
-            filename = get_random_string(8) + secure_filename(image.filename)
-            mainimage.save(os.path.join('ecommerce\\assets',app.config['UPLOAD_FOLDER'],mainfilename))
+      #   mainfilename=get_random_string(8)+secure_filename(mainimage.filename)
+      #   mainimage.save(os.path.join('ecommerce\\assets',app.config['UPLOAD_FOLDER'],mainfilename))
+      #   newMainImage = ProductMainImage(MainImage = mainfilename,mainimages = product)
+      #   db.session.add(newMainImage)
+      # else:
+      #       return "oneerror" 
+      for image in files:
+       if allowed_file(image.filename):
+        filename = get_random_string(8) + secure_filename(image.filename)
 
-            image.save(os.path.join('ecommerce\\assets', app.config['UPLOAD_FOLDER'], filename))
+        image.save(os.path.join('ecommerce\\assets', app.config['UPLOAD_FOLDER'], filename))
 
-            newPhoto = ProductImage(Image = filename, MainImage=mainfilename,iproduct = product)
-            db.session.add(newPhoto) 
-          else:
-            flash("Non allowed file format")
-            return "multipleerror"
-      else:
-        return "oneerror"
+        newPhoto = ProductImage(Image = filename,iproduct = product)
+        db.session.add(newPhoto) 
+       else:
+        flash("Non allowed file format")
+        return "multipleerror"
+      
 
       db.session.commit()
 
@@ -278,7 +294,7 @@ def catproduct(id):
 #USerlist
 @admin.route('/userlist')
 def userlist():
-  userlist=User.query.filter_by(UserTypeId=3 and User.Id!=6).all()
+  userlist=User.query.filter_by(UserTypeId=3 and User.Id!=3).all()
   return render_template('admin/userlist.html',userlist=userlist)
 
 #general orderlist for admin
@@ -350,29 +366,11 @@ def addbanner():
 #     banner = Slider.query.filter_by().all()
 #     return render_template("client/layout.html", allpr = banner)
 #ProductDetail
-@admin.route('/prodetails/<int:id>', methods = ['GET','POST'])
+@admin.route('/prodetails/<int:id>', methods = ['GET'])
 def prodetails(id):
     products=Products.query.filter_by(Id=id).first()
-    if len(products.images) ==1:
-     productimage=products.images
-    else:
-     productimage=products.images[1]
-
-    if request.method == 'POST':
-      categoryId=request.form['CategoryId']
-      name=request.form['Name']
-      count=request.form['Count']
-      price=int(request.form['Price'])
-      shopId=request.form['ShopId']
-      SizeId=request.form['size[]']
-      ColorId=request.form['color[]']
-      productorder=Products(Name=name,Count=count,CategoryId=categoryId,Price=price,ShopId=shopId)
-
-      # return render_template('admin/order.html',order=productorder,SizeId=SizeId,ColorId=ColorId,ProductId=products.Id)
-      return render_template('order.html',order=productorder,SizeId=SizeId,ColorId=ColorId,ProductId=products.Id)
-
-    else:
-     return render_template('admin/productdetail.html',product=products,productimage=productimage)
+   
+    return render_template('admin/productdetail.html',product=products)
 @admin.route('/generalorder')
 def generalorder():
     

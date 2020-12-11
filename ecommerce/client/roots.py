@@ -61,7 +61,7 @@ def order(productid):
       
       if session["userid"]==0:
          
-         UserId=6
+         UserId=3
       else :
         UserId=session["userid"]
 

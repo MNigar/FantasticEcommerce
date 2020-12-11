@@ -19,9 +19,6 @@ app=Flask(__name__,template_folder='templates' ,static_folder='assets')
 
 
 app.config['SECRET_KEY'] = 'hardsecretkey'
-# userpass = 'mysql+pymysql://root:Aa555555@@'
-# basedir  = '127.0.0.1'
-# dbname   = '/fantasticecommerce'
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{config("dbuser")}:{config("dbpass")}@{config("dbhost")}/{config("dbname")}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 UPLOAD_FOLDER = 'upload'

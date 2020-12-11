@@ -5,7 +5,10 @@
     {% extends "admin/layout.html" %}
     {% block body %}
 
-
+    <style>
+        .contain {object-fit: contain;}
+    
+    </style>
         <div class="page-wrapper">
 
             <!-- Page Content-->
@@ -79,19 +82,18 @@
                                         <td>{{product.Count}}</td>
                                         <td>{{product.Price}} AZN</td>
                                         <td>
-                                            {% for image in product.images %}
                                             
-                                            <img width="400px" style="margin: 10px;" src="{{url_for('static', filename = image.Image)}}" alt="">
+                                            <img class="contain"  style="width:150px;height:150px;margin: 10px;" src="{{url_for('static', filename ='upload/'+ product.MainImage)}}" alt="">
                                   
-                                            {% endfor %}
+                                           
                                          </td>
       
                                          <td>
        
-                                            <a href="/admin.deletep/{{product.Id}}" class="btn btn-primary">Sil</a>
+                                            <a href="{{url_for('admin.deletep',id=product.Id)}}"  >Sil</a>
                                             
-                                        
-                                            <a href="/admin.seditp/{{ product.Id }}" class="btn btn-primary">Dəyiş</a>
+                                            <a href="{{url_for('admin.editp',id= product.Id) }}" >Dəyiş</a>
+                                            <a href="{{url_for('admin.prodetails', id=product.Id) }}" >detal</a>
      
                                         </td>
                                       </tr>

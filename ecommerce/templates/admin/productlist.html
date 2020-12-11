@@ -71,11 +71,9 @@
                                          <td style="text-align:center">{{product.Price}} AZN</td>
                                         <td style="text-align:center">{{product.Count}}</td>
                                         <td style="text-align:center">
-                                            {% for image in product.images %}
                                             
-                                            <img class="contain"  style="width:200px;height:100px" src="{{url_for('static', filename ='upload/'+ image.Image)}}"  alt="">
+                                            <img class="contain"  style="width:150px;height:150px" src="{{url_for('static', filename ='upload/'+ product.MainImage)}}"  alt="">
                                   
-                                            {% endfor %}
                                          </td>
       
                                          <td style="text-align:center" >

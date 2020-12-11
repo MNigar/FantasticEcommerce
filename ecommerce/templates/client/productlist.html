@@ -58,11 +58,9 @@
 
                                                 <a href="{{url_for('roots.prodetails', id=product.Id) }}">
                                                         
-                                                       {% for i in product.images %}
                                                       
-                                                    <img  src="{{url_for('static', filename ='upload/'+ i.Image)}}" alt="" width="300"   height="202" >
+                                                    <img  src="{{url_for('static', filename ='upload/'+ product.MainImage)}}" alt="" width="300"   height="202" >
                                                         
-                                                    {% endfor %} </a>
                                                  
                                                 <div class="product-action-vertical">
                                                     <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
@@ -94,7 +92,7 @@
                                                 <div class="product-nav product-nav-thumbs">
                                                     {% for image in product.images %}
                                             
-                                                    <img width="40%"   height="40%" src="{{url_for('static', filename ='upload/'+ image.MainImage)}}"  alt="product desc">
+                                                    <img width="40%"   height="40%" src="{{url_for('static', filename ='upload/'+ image.Image)}}"  alt="product desc">
                                                     {% endfor %} </a>
                                                     
                                                    

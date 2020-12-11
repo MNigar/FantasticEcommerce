@@ -3,7 +3,10 @@
 <html lang="en">
     {% extends "shop/Layout.html" %}
     {% block body %}
-
+    <style>
+        .contain {object-fit: contain;}
+    
+    </style>
         <div class="page-wrapper">
 
             <!-- Page Content-->
@@ -69,7 +72,7 @@
                                             <td >
                                                 {% for image in product.images %}
                                                 
-                                                <img  style="margin: 10px;" src="{{url_for('static', filename ='upload/'+ image.Image)}}"  width="100px" height="100px" alt="">
+                                                <img  class="contain"  style="width:100px;height:100px; margin:1%" src="{{url_for('static', filename ='upload/'+ image.Image)}}"   alt="">
                                       
                                                 {% endfor %}
                                              </td>
@@ -79,7 +82,7 @@
                                                 <a href="{{url_for('shop.deletep',id=product.Id)}}"  >Sil</a>
                                                 
                                                 <a href="{{url_for('admin.editp',id= product.Id) }}" >Dəyiş</a>
-                                                <a href="{{url_for('roots.prodetails', id=product.Id) }}" >detal
+                                                <a href="{{url_for('admin.prodetails', id=product.Id) }}" >detal
                                                 </a>
     
                                             </td>

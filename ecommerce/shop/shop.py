@@ -25,6 +25,7 @@ def allowed_file(filename):
 #ProductAdd
 @shop.route('/addpr',methods=['GET','POST'])    
 def addpr():
+      
     userid=session["userid"]
     shop=Shop.query.filter_by(UserId=userid).first()
     products = Products.query.all()
@@ -39,15 +40,28 @@ def addpr():
       price=int(request.form['Price'])
       shopId=shop.Id
       Status=0
-      Description="nnn"
-      product=Products(Name=name,Count=count,CategoryId=categoryId,Price=price,ShopId=shopId,Description=Description,Status=Status)
+      mainimage=request.files['MainImage']
+      description=request.form['Description']
+      
+         
+      if mainimage.filename=='':
+          flash("no selected file")
+          return redirect(url_for('admin.addpr'))
+      
+      if allowed_file(mainimage.filename):
+    
+        mainfilename=get_random_string(8)+secure_filename(mainimage.filename)
+        mainimage.save(os.path.join('ecommerce\\assets',app.config['UPLOAD_FOLDER'],mainfilename))
+      else:
+            return "oneerror" 
+      product=Products(Name=name,Count=count,CategoryId=categoryId,MainImage=mainfilename,Price=price,ShopId=shopId,Description=description,Status=Status)
       selectedproductobj=product
       selectedcolor = request.form.getlist('color[]')
       selectedsize= request.form.getlist('size[]')
       files = request.files.getlist('photo[]')
       if len(files) == 0:
         flash("No selected file !")
-        return redirect(url_for('shop.addpr'))
+        return redirect(url_for('admin.addpr'))
       db.session.add(product)   
       for color in selectedcolor:
         selectedcolor1=Color.query.filter_by(Id=color).first()
@@ -55,30 +69,34 @@ def addpr():
       for size in selectedsize:
          selectedsize1=Size.query.filter_by(Id=size).first()
          selectedsize1.sproduct.append(selectedproductobj)
-      mainimage=request.files['MainImage']
-      if mainimage.filename=='':
-          flash("no selected file")
-          return redirect(url_for('admin.addpr'))
-      if allowed_file(mainimage.filename):
+      # mainimage=request.files['MainImage']
+      # if mainimage.filename=='':
+      #     flash("no selected file")
+      #     return redirect(url_for('admin.addpr'))
+      
+      # if allowed_file(mainimage.filename):
     
-        mainfilename=get_random_string(8)+secure_filename(mainimage.filename)
-     
-        for image in files:
-          if allowed_file(image.filename):
-            filename = get_random_string(8) + secure_filename(image.filename)
-            mainimage.save(os.path.join('ecommerce\\assets',app.config['UPLOAD_FOLDER'],mainfilename))
+      #   mainfilename=get_random_string(8)+secure_filename(mainimage.filename)
+      #   mainimage.save(os.path.join('ecommerce\\assets',app.config['UPLOAD_FOLDER'],mainfilename))
+      #   newMainImage = ProductMainImage(MainImage = mainfilename,mainimages = product)
+      #   db.session.add(newMainImage)
+      # else:
+      #       return "oneerror" 
+      for image in files:
+       if allowed_file(image.filename):
+        filename = get_random_string(8) + secure_filename(image.filename)
 
-            image.save(os.path.join('ecommerce\\assets', app.config['UPLOAD_FOLDER'], filename))
+        image.save(os.path.join('ecommerce\\assets', app.config['UPLOAD_FOLDER'], filename))
 
-            newPhoto = ProductImage(Image = filename, MainImage=mainfilename,iproduct = product)
-            db.session.add(newPhoto) 
-          else:
-            flash("Non allowed file format")
-            return "multipleerror"
-      else:
-        return "oneerror"
+        newPhoto = ProductImage(Image = filename,iproduct = product)
+        db.session.add(newPhoto) 
+       else:
+        flash("Non allowed file format")
+        return "multipleerror"
+      
 
       db.session.commit()
+
 
       return redirect(url_for('shop.listp'))
     if request.method=='GET':
@@ -122,3 +140,9 @@ def deletep(id):
     db.session.commit()
     
     return redirect(url_for('shop.listp'))
+
+#ProductDetail
+@shop.route('/prodetails/<int:id>', methods = ['GET'])
+def prodetails(id):
+    products=Products.query.filter_by(Id=id).first()
+    return render_template('shop/productdetail.html',product=products)

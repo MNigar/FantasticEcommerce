@@ -16,12 +16,12 @@
             </ol>
         </div><!-- End .container -->
     </nav><!-- End .breadcrumb-nav -->
-
+    <form id="Forms" action="{{url_for('roots.order', productid = product.Id)}}" method="POST" >
     <div class="page-content">
         <div class="checkout">
             <div class="container">
                 
-                <form id="Forms" action="{{url_for('roots.order', productid = product.Id)}}" method="POST" >
+                
 
                     <div class="row">
                         <div class="col-lg-9">
@@ -130,10 +130,11 @@
                             </div><!-- End .summary -->
                         </aside><!-- End .col-lg-3 -->
                     </div><!-- End .row -->
-                </form>
+               
             </div><!-- End .container -->
         </div><!-- End .checkout -->
     </div><!-- End .page-content -->
+</form>
 </main><!-- End .main -->
 
 <script>

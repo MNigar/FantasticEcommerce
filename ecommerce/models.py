@@ -48,7 +48,8 @@ class User(db.Model,UserMixin):
     # cart=db.relationship("Cart", back_populates="User")
     # ratings=db.relationship("Rating", back_populates="User")
     # order=db.relationship("Order", back_populates="User")
-    # notification=db.relationship("Notification", back_populates="User")
+    notification=db.relationship("Notification", backref="usernotification",lazy='select')
+    favorites=db.relationship("Favorite", backref="userfavorite",lazy='select')
 
     def __repr__(self):
         return f"User('{self.Name}','{self.Surname}','{self.Phone}','{self.Email}','{self.Password}','{self.UserTypeId}')"
@@ -93,12 +94,16 @@ class Products(db.Model):
     Price=db.Column(db.Numeric,nullable=False)   
     ShopId=db.Column(db.Integer,db.ForeignKey('Shop.Id'),nullable=False)
     Description=db.Column(db.String(600),nullable=False)
+    MainImage=db.Column(db.String(1000),nullable=False)
+
     Status=db.Column(db.Integer,nullable=False)
     images=db.relationship("ProductImage", backref="iproduct",lazy='select')
     pcolors=db.relationship("Color",secondary=pcolors, backref="cproduct",lazy='select')
     psizes=db.relationship("Size",secondary=psizes, backref="sproduct",lazy='select')    
     ratings=db.relationship('Rating',backref="Products",lazy='select')
-    
+    notification=db.relationship('Notification',backref="notificationproduct",lazy='select')
+    profavorites=db.relationship("Favorite", backref="productfavorite",lazy='select')
+
     def __repr__(self):
         return f"Products('{self.Name}','{self.Count}','{self.CategoryId}','{self.Price}','{self.ShopId}','{self.Status}','{self.Description}')"
 
@@ -107,9 +112,10 @@ class ProductImage(db.Model):
     Id=db.Column(db.Integer,primary_key=True)
     ProductId=db.Column(db.Integer,db.ForeignKey('Products.Id'),nullable=False)
     Image=db.Column(db.String(1000),nullable=False)
-    MainImage=db.Column(db.String(1000),nullable=False)
     def __repr__(self):
-        return f"ProductImage('{self.ProductId}','{self.Image}','{self.MainImageId}')"
+        return f"ProductImage('{self.ProductId}','{self.Image}')"
+
+
 class Rating(db.Model):
     __tablename__='Rating'
     Id=db.Column(db.Integer,primary_key=True)
@@ -155,3 +161,22 @@ class Slider(db.Model):
     URL=db.Column(db.String(1000),nullable=True)  
     def __repr__(self):
         return f"Slider('{self.Text}','{self.Image}','{self.URL}')"
+
+class Notification(db.Model):
+    __tablename__='Notification'
+    Id=db.Column(db.Integer,primary_key=True)
+    ProductId=db.Column(db.Integer,db.ForeignKey('Products.Id'),nullable=False)
+    UserId=db.Column(db.Integer,db.ForeignKey('User.Id'),nullable=False)
+    Text=db.Column(db.String(500),nullable=False)
+
+    def __repr__(self):
+        return f"Notification('{self.ProductId}','{self.UserId}','{self.Text}')"
+
+class Favorite (db.Model):
+    __tablename__='Favorite'
+    Id=db.Column(db.Integer,primary_key=True)
+    ProductId=db.Column(db.Integer,db.ForeignKey('Products.Id'),nullable=False)
+    UserId=db.Column(db.Integer,db.ForeignKey('User.Id'),nullable=False)
+    Status=db.Column(db.Integer,nullable=False)
+    def __repr__(self):
+        return f"Favorite('{self.ProductId}','{self.UserId}')"
