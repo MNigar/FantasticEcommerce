@@ -294,7 +294,7 @@ def catproduct(id):
 #USerlist
 @admin.route('/userlist')
 def userlist():
-  userlist=User.query.filter_by(UserTypeId=3 and User.Id!=3).all()
+  userlist=User.query.filter(User.UserTypeId==3, User.Id!=3).all()
   return render_template('admin/userlist.html',userlist=userlist)
 
 #general orderlist for admin
